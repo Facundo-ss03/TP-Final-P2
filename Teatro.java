@@ -3,8 +3,8 @@ import java.util.HashMap;
 
 public class Teatro extends SedesConPlateas{
 
-    Teatro(String direccion, int CAPACIDAD_MAXIMA, String[] listaDeSectores, 
-                    int[] capacidadPorSector, int ASIENTOS_X_FILA, int[] porcentajesAdicionales) {
+    Teatro(String direccion, int CAPACIDAD_MAXIMA, int ASIENTOS_X_FILA , String[] listaDeSectores, 
+                    int[] capacidadPorSector, int[] porcentajesAdicionales) {
                 
         super(direccion, CAPACIDAD_MAXIMA, listaDeSectores, capacidadPorSector, ASIENTOS_X_FILA, porcentajesAdicionales);
         
@@ -12,17 +12,6 @@ public class Teatro extends SedesConPlateas{
 
     }
 
-    @Override
-    public String toString() {
-    
-        String datos = "";
-        StringBuilder salida = new StringBuilder(getDireccion() + " - " + getCapacidadMaxima());
-        
-        return salida.toString();
-
-        
-    
-    }
 
     private int sumarCapacidadesDeSectores(int[] capacidades){
 
@@ -37,5 +26,6 @@ public class Teatro extends SedesConPlateas{
         return acumulador;
 
     }
+
 
 }

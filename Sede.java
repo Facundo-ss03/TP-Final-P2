@@ -1,5 +1,5 @@
 
-public abstract class Sede<T> {
+public abstract class Sede{
 
 	public Sede(String direccion, int CAPACIDAD_MAXIMA){
 		
@@ -12,17 +12,9 @@ public abstract class Sede<T> {
 		
 		}
 	}
-
-	public Sede(String direccion, int CAPACIDAD_MAXIMA, String sector) {
-
-		this.direccion = direccion;
-		this.capacidadMaxima = CAPACIDAD_MAXIMA;
-
-	}
 	
 	private int capacidadMaxima;
 	private String direccion;
-	protected T sectores;
 	
 	public String getDireccion(){
 		return direccion;
@@ -32,12 +24,5 @@ public abstract class Sede<T> {
 		return capacidadMaxima;
 	}
 
-	protected void setSectores(T sectores) {
-		this.sectores = sectores;
-	}
-
-	protected T getSectores(){
-		return sectores;
-	}
 
 }

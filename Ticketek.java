@@ -10,15 +10,12 @@ public class Ticketek implements ITicketek{
 		this.usuarios = new HashMap<String, Usuario>();
 		this.espectaculos = new HashMap<String, Espectaculo>();
 		this.sedes = new HashMap<String, Sede>();
-		this.recaudacion = new HashMap<String, Double>();
 
 	}
 
-	private HashMap usuarios;
-	private HashMap espectaculos;
-	private HashMap sedes;
-	private HashMap recaudacion;
-
+	private HashMap<String, Usuario> usuarios;
+	private HashMap<String, Espectaculo> espectaculos;
+	private HashMap<String, Sede> sedes;
 	
 	@Override
 	public void registrarSede(String nombre, String direccion, int capacidadMaxima) {
@@ -37,43 +34,64 @@ public class Ticketek implements ITicketek{
 				
 		if(!sedes.containsKey(nombre) && !nombre.trim().isEmpty()){
 
-			sedes.put(nombre, new Teatro(direccion, capacidadMaxima, sectores, capacidad, asientosPorFila, porcentajeAdicional));
-			Teatro t = new Teatro(direccion, capacidadMaxima, sectores, capacidad, asientosPorFila, porcentajeAdicional);
-
+			sedes.put(nombre, new Teatro(direccion, capacidadMaxima, asientosPorFila, 
+											sectores, capacidad, porcentajeAdicional));
+			
 		}
-		
+
 	}
 
 	@Override
 	public void registrarSede(String nombre, String direccion, int capacidadMaxima, int asientosPorFila,
 			int cantidadPuestos, double precioConsumicion, String[] sectores, int[] capacidad,
 			int[] porcentajeAdicional) {
-		// TODO Auto-generated method stub
-		
+				
+		if(!sedes.containsKey(nombre) && !nombre.trim().isEmpty()){
+
+			sedes.put(nombre, new MiniTeatro(direccion, capacidadMaxima, asientosPorFila, cantidadPuestos,
+											precioConsumicion, sectores, capacidad, porcentajeAdicional));
+			
+		}
+
 	}
 
 	@Override
 	public void registrarUsuario(String email, String nombre, String apellido, String contrasenia) {
-		// TODO Auto-generated method stub
+		
+		if(!usuarios.containsKey(email)){
+
+			usuarios.put(email, new Usuario(nombre, apellido, contrasenia));
+
+		}
 		
 	}
 
 	@Override
 	public void registrarEspectaculo(String nombre) {
-		// TODO Auto-generated method stub
+		
+		if(!espectaculos.containsKey(nombre)){
+
+			espectaculos.put(nombre, new Espectaculo());
+
+		}
 		
 	}
 
 	@Override
 	public void agregarFuncion(String nombreEspectaculo, String fecha, String sede, double precioBase) {
-		// TODO Auto-generated method stub
+		
+		Espectaculo espectaculo = espectaculos.get(nombreEspectaculo);
+		
+		espectaculo.agregarFuncion(fecha, sede, precioBase);
 		
 	}
 
 	@Override
 	public List<IEntrada> venderEntrada(String nombreEspectaculo, String fecha, String email, String contrasenia,
 			int cantidadEntradas) {
-		// TODO Auto-generated method stub
+				
+			
+
 		return null;
 	}
 

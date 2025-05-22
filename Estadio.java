@@ -1,9 +1,14 @@
 
-public class Estadio extends Sede<String>{
+public class Estadio extends Sede{
 
     Estadio(String direccion, int capMaxima) {
         
-        super(direccion, capMaxima, "CAMPO");
+        super(direccion, capMaxima);
+
+        sector = "CAMPO";
+
     }
+
+    String sector;
 
 }

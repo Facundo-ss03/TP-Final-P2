@@ -1,3 +1,4 @@
+import java.time.LocalDate;
 import java.util.Date;
 
 public class Entrada implements IEntrada{
@@ -12,7 +13,7 @@ public class Entrada implements IEntrada{
     private double precio;
     private int fila;
     private int asiento;
-    private Date fecha;
+    private LocalDate fecha;
 
     @Override
     public double precio() {
