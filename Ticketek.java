@@ -80,8 +80,10 @@ public class Ticketek implements ITicketek{
 	@Override
 	public void agregarFuncion(String nombreEspectaculo, String fecha, String sede, double precioBase) {
 		
+		if(!espectaculos.containsKey(nombreEspectaculo))
+			return;
+			
 		Espectaculo espectaculo = espectaculos.get(nombreEspectaculo);
-		
 		espectaculo.agregarFuncion(fecha, sede, precioBase);
 		
 	}
