@@ -13,23 +13,33 @@ public class Sector {
     private int CAPACIDAD_MAXIMA;
     private int ASIENTOS_X_FILA;
 
-    public String getAsientoYFila(int numeroDeAsiento){
+    //Calcula el costo final de la entrada según el sector.
+    public int calcularCosto(int PRECIO_BASE){
 
-        if(numeroDeAsiento <= CAPACIDAD_MAXIMA && numeroDeAsiento > 0){
+        int PRECIO_FINAL = PRECIO_BASE + ((PRECIO_BASE*ADICIONAL)/100);
+
+        return PRECIO_FINAL;
+
+    }
+
+    //Este método calcula en qué fila se encuentra el asiento.
+    public int calcularFila(int NUMERO_DE_ASIENTO){
+
+        if(NUMERO_DE_ASIENTO <= CAPACIDAD_MAXIMA && NUMERO_DE_ASIENTO > 0){
 
             int fila = 1;
-            for (int i = 1; i <= numeroDeAsiento; i++) {
+            for (int i = 1; i <= NUMERO_DE_ASIENTO; i++) {
                 
                 if(i % ASIENTOS_X_FILA == 0) fila++;
     
             }
 
-            StringBuilder sb = new StringBuilder();
-            sb.append("f:" + fila + " a:" + numeroDeAsiento);
-            return sb.toString();
+            return fila;
 
         } else {
+
             throw new RuntimeException("El número de asiento ingresado es inválido.");
+            
         }
 
     }

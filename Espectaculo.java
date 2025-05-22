@@ -27,9 +27,10 @@ public class Espectaculo {
     public String toString() {
         
         StringBuilder sb = new StringBuilder();
+
         for (Funcion elem : funciones.values()) {
          
-            sb.append(funciones.toString());   
+            sb.append(elem.toString());   
         
         }
 

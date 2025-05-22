@@ -12,20 +12,4 @@ public class Teatro extends SedesConPlateas{
 
     }
 
-
-    private int sumarCapacidadesDeSectores(int[] capacidades){
-
-        int acumulador = 0;
-
-        for(int i = 0; i < capacidades.length; i++){
-
-            acumulador += capacidades[i];
-
-        }
-
-        return acumulador;
-
-    }
-
-
 }
