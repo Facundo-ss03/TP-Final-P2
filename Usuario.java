@@ -15,6 +15,10 @@ public class Usuario {
     private String contraseña;
     private List<IEntrada> entradas;
 
+    public boolean autenticar(String unaContrasenia){
+        return this.contraseña.equals(unaContrasenia);
+    }
+
     @Override
     public String toString() {
 

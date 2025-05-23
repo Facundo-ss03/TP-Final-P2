@@ -16,14 +16,12 @@ public class Ticketek implements ITicketek{
 	private HashMap<String, Usuario> usuarios;
 	private HashMap<String, Espectaculo> espectaculos;
 	private HashMap<String, Sede> sedes;
-	
+
 	@Override
 	public void registrarSede(String nombre, String direccion, int capacidadMaxima) {
 
 		if(!sedes.containsKey(nombre) && !nombre.trim().isEmpty()){
-
-			sedes.put(nombre, new Estadio(direccion, capacidadMaxima));
-			
+			sedes.put(nombre, new Estadio(direccion, capacidadMaxima));		
 		}
 		
 	}
@@ -90,15 +88,32 @@ public class Ticketek implements ITicketek{
 	public List<IEntrada> venderEntrada(String nombreEspectaculo, String fecha, String email, String contrasenia,
 			int cantidadEntradas) {
 				
-			
+		Usuario user = usuarios.get(email);
 
+		if(!user)
+				return null;
+
+		if(!user.autenticar(contrasenia))
+				return null;
+
+		if(!espectaculos.get(nombreEspectaculo))
+				return null;
+
+		Funcion unaFuncion = espectaculo.get(nombreEspectaculo).get(fecha);
+		if(!unaFuncion)
+				return null;
+
+		for()
+		
 		return null;
 	}
 
 	@Override
 	public List<IEntrada> venderEntrada(String nombreEspectaculo, String fecha, String email, String contrasenia,
 			String sector, int[] asientos) {
-		// TODO Auto-generated method stub
+		
+		
+
 		return null;
 	}
 
