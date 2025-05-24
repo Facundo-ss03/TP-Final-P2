@@ -17,14 +17,12 @@ public class Ticketek implements ITicketek{
 	private HashMap<String, Usuario> usuarios;
 	private HashMap<String, Espectaculo> espectaculos;
 	private HashMap<String, Sede> sedes;
-	
+
 	@Override
 	public void registrarSede(String nombre, String direccion, int capacidadMaxima) {
 
 		if(!sedes.containsKey(nombre) && !nombre.trim().isEmpty()){
-
-			sedes.put(nombre, new Estadio(direccion, capacidadMaxima));
-			
+			sedes.put(nombre, new Estadio(direccion, capacidadMaxima));		
 		}
 		
 	}
@@ -136,26 +134,37 @@ public class Ticketek implements ITicketek{
 
 	@Override
 	public List<IEntrada> venderEntrada(String nombreEspectaculo, String fecha, String email, String contrasenia,
-										int cantidadEntradas) {
-				
-		if(espectaculos.containsKey(nombreEspectaculo) && usuarios.containsKey(email)){
-
-			if(usuarios.get(email).validarContraseña(contrasenia)){
-				
-				Espectaculo espectaculo = espectaculos.get(nombreEspectaculo); // terminar
-				List<IEntrada> entradas = new ArrayList<IEntrada>();
+		int cantidadEntradas) {
+			
+			
+		try {
+			
+			if(espectaculos.containsKey(nombreEspectaculo) && usuarios.containsKey(email)){
 	
-				for (int i = 0; i < cantidadEntradas; i++) {
+				if(usuarios.get(email).validarContraseña(contrasenia)){
 					
-					entradas.add(espectaculo.procesarVenta(nombreEspectaculo, LocalDate.parse(fecha), email));
-					
-				}
+					Espectaculo espectaculo = espectaculos.get(nombreEspectaculo); // terminar
+					List<IEntrada> entradas = new ArrayList<IEntrada>();
+		
+					for (int i = 0; i < cantidadEntradas; i++) {
+						
+						entradas.add(espectaculo.procesarVenta(nombreEspectaculo, LocalDate.parse(fecha), email));
+						
+					}
 				
+					return entradas;
+				} else {
+					throw new RuntimeException("Error");
+				}
+	
+			} else {
+				throw new RuntimeException("Error");
 			}
 
+		} catch (Exception ex) {
+			throw new RuntimeException("Error: ");
 		}
-
-		return null;
+		
 	}
 
 	private boolean usuarioValido(String email, String contrasenia){
@@ -171,7 +180,9 @@ public class Ticketek implements ITicketek{
 	@Override
 	public List<IEntrada> venderEntrada(String nombreEspectaculo, String fecha, String email, String contrasenia,
 			String sector, int[] asientos) {
-		// TODO Auto-generated method stub
+		
+		
+
 		return null;
 	}
 
