@@ -3,7 +3,9 @@ public abstract class Sede{
 
 	public Sede(String direccion, int CAPACIDAD_MAXIMA){
 		
-		boolean datosValidos = !direccion.trim().isEmpty() || CAPACIDAD_MAXIMA > 0;
+		boolean direccionValida = direccion.trim().isEmpty();
+		boolean capacidadValida = CAPACIDAD_MAXIMA > 0;
+		boolean datosValidos = direccionValida && capacidadValida;
 		
 		if(datosValidos){
 

@@ -1,3 +1,4 @@
+import java.util.HashMap;
 import java.util.List;
 
 public class Usuario {
@@ -7,13 +8,20 @@ public class Usuario {
         this.nombre = nombre;
         this.apellido = apellido;
         this.contraseña = contraseña;
-
+        this.entradas = new HashMap<String, IEntrada>();
     }
 
     private String nombre;
     private String apellido;
     private String contraseña;
-    private List<IEntrada> entradas;
+    private HashMap<String, IEntrada> entradas;
+
+    public boolean validarContraseña(String contraseña){
+
+        if(contraseña.equals(this.contraseña)) return true;
+        else return false;
+
+    }
 
     @Override
     public String toString() {
@@ -26,7 +34,7 @@ public class Usuario {
         
         sb.append("Entradas: \n");
         
-        for (IEntrada elem : entradas) {
+        for (IEntrada elem : entradas.values()) {
 
             sb.append(elem.toString() + "\n");
 

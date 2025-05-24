@@ -1,6 +1,5 @@
 
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.HashMap;
 
 public class Espectaculo {
@@ -12,7 +11,23 @@ public class Espectaculo {
 
     private HashMap<LocalDate, Funcion> funciones;
 
-    public void agregarFuncion(String fecha, String sede, double precioBase){
+    public Entrada procesarVenta(String nombreEspectaculo, LocalDate fecha, String email){
+
+        if(funciones.containsKey(fecha)){
+
+            Funcion funcion = funciones.get(fecha);
+            Entrada entrada = funcion.crearEntrada(email, nombreEspectaculo, fecha);
+
+            return entrada;
+
+        } else {
+            throw new RuntimeException("Error: la fecha ingresada no corresponde a ninguna función registrada.");
+        }
+
+        
+    }
+
+    public void agregarFuncion(String fecha, Sede sede, double precioBase){
 
         if(!funciones.containsKey(fecha)){
 

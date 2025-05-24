@@ -7,11 +7,17 @@ public class MiniTeatro extends SedesConPlateas{
         super(direccion, capMaxima, listaSectores, porcentajeAdicional, asientosPorFila, porcentajeAdicional);
 
         this.puestos = cantPuestos;
-        this.ConsumicionLibre = valorDeConsumicion;
+        this.consumicionLibre = valorDeConsumicion;
 
     }
 
     private int puestos;
-    private double ConsumicionLibre;
+    private double consumicionLibre;
     
+    public double agregarConsumicion(){
+
+        return consumicionLibre;
+
+    }
+
 }

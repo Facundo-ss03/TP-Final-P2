@@ -11,4 +11,7 @@ public class Estadio extends Sede{
 
     String sector;
 
+    public String getSector(){
+        return sector;
+    }
 }

@@ -6,6 +6,8 @@ public class Principal {
 	public static void main(String[] args) {
 		
 		ITicketek ticketek = new Ticketek();
+        Ticketek t = new Ticketek();
+        
 		// Empresa recien creada
 		printEmpresa(ticketek, "Recien creada");
 		
