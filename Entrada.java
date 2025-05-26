@@ -2,11 +2,12 @@ import java.time.LocalDate;
 
 public class Entrada implements IEntrada{
 
-    public Entrada(String emailUsuario, String nombreDeEspectaculo,String ubicacion, 
-                    String sector, LocalDate fechaDeFuncion, double precio) {
+    public Entrada(String emailUsuario, String nombreDeEspectaculo, String nombreSede, String ubicacion, 
+                    String sector, Fecha fechaDeFuncion, double precio) {
 
         this.email = emailUsuario;
         this.espectaculo = nombreDeEspectaculo;
+        this.sede = nombreSede;
         this.ubicacion = ubicacion;
         this.sector = sector;
         this.fecha = fechaDeFuncion;
@@ -18,15 +19,28 @@ public class Entrada implements IEntrada{
         this.codigoEntrada = sb.toString();
     }
 
-    private String email;   //necesita el email como referencia del usuario que la compró, para poder identificarlo rápidamente. 
     private String codigoEntrada;
+    private String email;   //necesita el email como referencia del usuario que la compró, para poder identificarlo rápidamente. 
     private String espectaculo;
+    private String sede;
     private String ubicacion;
     private String sector;
     private double costoTotal;
-    private LocalDate fecha;
+    private Fecha fecha;
 
     private static int CODIGO_DE_ENTRADA;
+
+    public String getSector(){
+        return sector;
+    }
+
+    public String getSede(){
+        return sede;
+    }
+
+    public String getEspectaculo(){
+        return espectaculo;
+    }
 
     public int getCodigoDeEntrada() {
         return CODIGO_DE_ENTRADA;
@@ -34,6 +48,10 @@ public class Entrada implements IEntrada{
 
     public String getEmail(){
         return email;
+    }
+
+    public Fecha getFecha(){
+        return fecha;
     }
 
     @Override

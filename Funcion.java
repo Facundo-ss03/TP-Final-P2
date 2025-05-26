@@ -15,18 +15,50 @@ public class Funcion {
     private ArrayList<Integer> asientosVendidos;    //anularEntrada() debe eliminar de este array los asientos de las entradas anuladas
 
 
-    public Entrada crearEntrada(String emailUsuario, String nombreDeEspectaculo, LocalDate fechaDeFuncion) {
+    public Entrada crearEntrada(String emailUsuario, String nombreDeEspectaculo, String fechaDeFuncion) {
 
         Estadio estadio = (Estadio) sede;
 
         String ubicacion = estadio.getDireccion();
         String sector = estadio.getSector();
-        
-        Entrada entrada = new Entrada(emailUsuario, nombreDeEspectaculo, ubicacion, sector, fechaDeFuncion, precioBase);
+        Fecha fecha = new Fecha(fechaDeFuncion);
+
+        Entrada entrada = new Entrada(emailUsuario, nombreDeEspectaculo, ubicacion, sector, fecha, precioBase);
 
         return entrada;
 
     }
+
+   
+    public Entrada crearEntrada(String emailUsuario, String nombreDeEspectaculo, String fechaDeFuncion, String sector, int asiento) {
+
+        if(consultarDisponibilidadDeAsiento(asiento)){
+            
+            if(sede.getClass() == Teatro.class){
+        
+                Teatro teatro = (Teatro) sede;
+                String ubicacion = teatro.getDireccion();
+                if(teatro.consultarDisponibilidadDeAsiento(sector, asiento)){
+        
+                    int fila = teatro.buscarFila(sector, asiento);
+                    
+                }
+            }
+        }
+
+        Fecha fecha = new Fecha(fechaDeFuncion);
+
+        Entrada entrada = new Entrada(emailUsuario, nombreDeEspectaculo, ubicacion, sector, fecha, precioBase);
+
+        return entrada;
+
+    }
+
+    private boolean consultarDisponibilidadDeAsiento(int asiento){
+        if(asientosVendidos.contains(asientosVendidos)) return false;
+            return true;
+    }
+
 
     private boolean agregarAsientoVendido(){
 

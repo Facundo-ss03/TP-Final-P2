@@ -12,7 +12,7 @@ public abstract class SedesConPlateas extends Sede {
         configurarSectores(listaDeSectores, capacidadPorSector, ASIENTOS_X_FILA, porcentajesAdicionales);
     }
 
-    private HashMap<String, Sector> sectores;
+    protected HashMap<String, Sector> sectores;
 
     private void configurarSectores(String[] listaDeSectores, int[] capacidadPorSector, int ASIENTOS_X_FILA, int[] porcentajesAdicionales){
         
@@ -21,7 +21,6 @@ public abstract class SedesConPlateas extends Sede {
             sectores.put(listaDeSectores[i], new Sector(capacidadPorSector[i], ASIENTOS_X_FILA, porcentajesAdicionales[i]));
 
         }
-
     }
 
     //Este método está pensado para validar si el sector solicitado existe, y para obtener la fila en la que se encuentra el asiento.
@@ -38,8 +37,24 @@ public abstract class SedesConPlateas extends Sede {
             throw new RuntimeException("No existe el asiento en el sector solicitado");
 
         }
+    }
+
+    public boolean consultarDisponibilidadDeAsiento(String sector, int asiento){
+
+        if(!sectores.containsKey(sector)){
+            throw new RuntimeException("Error: el sector solicitado no existe.");
+        }
+        if(asiento <= 0){
+            throw new RuntimeException("Error: el asiento solicitado es inválido.");
+        }
+
+        Sector sectorSolicitado = sectores.get(sector);
+        sectorSolicitado.calcularFila(asiento);
+
 
 
     }
+
+
 
 }

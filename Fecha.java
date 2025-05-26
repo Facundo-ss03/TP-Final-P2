@@ -1,4 +1,5 @@
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
 public class Fecha{
@@ -7,7 +8,7 @@ public class Fecha{
 
         try {
             
-            fechaParseada = LocalDate.parse(fecha);
+            fechaParseada = LocalDate.parse(fecha, formato);
         
         } catch (DateTimeParseException ex) {
             throw new RuntimeException("Error: no se pudo convertir la fecha al tipo LocalDate.");
@@ -15,6 +16,7 @@ public class Fecha{
     }
 
     private LocalDate fechaParseada;
+    private static DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/yy");
 
     public LocalDate getFecha(){
         return fechaParseada;
@@ -24,7 +26,7 @@ public class Fecha{
 
         try {
             
-            LocalDate nuevaFecha = LocalDate.parse(fecha);
+            LocalDate nuevaFecha = LocalDate.parse(fecha, formato);
     
             if(fechaParseada.isBefore(nuevaFecha)) return true;
                 else return false;
@@ -39,7 +41,7 @@ public class Fecha{
 
         try {
             
-            LocalDate nuevaFecha = LocalDate.parse(fecha);
+            LocalDate nuevaFecha = LocalDate.parse(fecha, formato);
     
             if(fechaParseada.isAfter(nuevaFecha)) return true;
                 else return false;
@@ -50,13 +52,47 @@ public class Fecha{
 
     }
 
-    public boolean esAnteriorALaActual(){
+    public static boolean esAnteriorALaActual(Fecha fecha){
 
         LocalDate actual = LocalDate.now();
 
-        if(fechaParseada.isBefore(actual)) return true;
+        if(actual.isAfter(fecha.fechaParseada)) return true;
             else return false;
 
+    }
+
+    public static boolean esAnteriorALaActual(String fecha){
+
+        LocalDate actual = LocalDate.now();
+        LocalDate fechaParseada = LocalDate.parse(fecha, formato);
+
+        if(actual.isAfter(fechaParseada)) return true;
+            else return false;
+
+    }
+
+    public static boolean esPosteriorALaActual(Fecha fecha){
+
+        LocalDate actual = LocalDate.now();
+
+        if(actual.isBefore(fecha.fechaParseada)) return true;
+            else return false;
+
+    }
+
+    public static boolean esPosteriorALaActual(String fecha){
+
+        LocalDate actual = LocalDate.now();
+        LocalDate fechaParseada = LocalDate.parse(fecha, formato);
+
+        if(actual.isBefore(fechaParseada)) return true;
+            else return false;
+
+    }
+
+    @Override
+    public String toString() {
+        return fechaParseada.toString();
     }
 
 

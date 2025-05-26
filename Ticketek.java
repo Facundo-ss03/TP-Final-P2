@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import javax.management.RuntimeErrorException;
+
 public class Ticketek implements ITicketek{
 
 	public Ticketek() {
@@ -111,9 +113,7 @@ public class Ticketek implements ITicketek{
 
 		try {
 			
-			Fecha fecha = new Fecha(fechaFuncion);
-	
-			if(fecha.esAnteriorALaActual()){
+			if(Fecha.esAnteriorALaActual(fechaFuncion)){
 				throw new RuntimeException("Error: la fecha ingresada es incorrecta.");
 			}
 			//falta validar la fecha.
@@ -127,7 +127,7 @@ public class Ticketek implements ITicketek{
 			}
 
 		} catch (Exception ex) {
-			throw new RuntimeException(ex.getMessage());	
+			throw new RuntimeException("Error al agregar una función.", ex);	
 		}
 		
 	}
@@ -136,78 +136,161 @@ public class Ticketek implements ITicketek{
 	public List<IEntrada> venderEntrada(String nombreEspectaculo, String fecha, String email, String contrasenia,
 		int cantidadEntradas) {
 			
-			
 		try {
 			
-			if(espectaculos.containsKey(nombreEspectaculo) && usuarios.containsKey(email)){
-	
-				if(usuarios.get(email).validarContraseña(contrasenia)){
-					
+			if(usuarioValido(email, contrasenia)){
+				
+				if(epectaculoValido(nombreEspectaculo)){
+				
 					Espectaculo espectaculo = espectaculos.get(nombreEspectaculo); // terminar
 					List<IEntrada> entradas = new ArrayList<IEntrada>();
 		
 					for (int i = 0; i < cantidadEntradas; i++) {
 						
-						entradas.add(espectaculo.procesarVenta(nombreEspectaculo, LocalDate.parse(fecha), email));
+						entradas.add(espectaculo.procesarVenta(nombreEspectaculo, fecha, email));
 						
 					}
 				
 					return entradas;
-				} else {
-					throw new RuntimeException("Error");
-				}
-	
-			} else {
-				throw new RuntimeException("Error");
-			}
 
+				} else {
+					throw new RuntimeException("Error: el espectaculo solicitado no existe o se ingresó un nombre incorrecto.");
+				}
+			} else {
+				throw new RuntimeException("Error: el usuario que solicita la entrada no está registrado o ingresó datos incorrectos.");
+			}
 		} catch (Exception ex) {
-			throw new RuntimeException("Error: ");
+			throw new RuntimeException("Error en el procesamiento de la venta", ex);
 		}
 		
 	}
 
 	private boolean usuarioValido(String email, String contrasenia){
 
-		if(usuarios.containsKey(email)){
+		if(emailValido(email) && usuarios.containsKey(email)){
+
 			Usuario usuario = usuarios.get(email);
-			return usuario.validarContraseña(contrasenia);
+
+			if(usuario.validarContraseña(contrasenia) == true) return true;
+				else return false;
+
 		} else {
-			throw new RuntimeException("No se pudo validar el usuario porque el email o la contraseña son incorrectos.");
+			throw new RuntimeException("Error al validar al usuario.");
 		}
 	}
+
+	private boolean emailValido(String email){
+		if(email.trim().isEmpty() == false) return true;
+			else return false;
+	}
+
+	private boolean epectaculoValido(String nombreEspectaculo){
+		if(nombreEspectaculo.trim().isEmpty() == false && espectaculos.containsKey(nombreEspectaculo)) return true;
+			else return false;
+	}
+
 
 	@Override
 	public List<IEntrada> venderEntrada(String nombreEspectaculo, String fecha, String email, String contrasenia,
 			String sector, int[] asientos) {
 		
+		try {
+			
+			if(usuarioValido(email, contrasenia)){
+				
+				if(epectaculoValido(nombreEspectaculo)){
+				
+					Espectaculo espectaculo = espectaculos.get(nombreEspectaculo); // terminar
+					List<IEntrada> entradas = new ArrayList<IEntrada>();
 		
+					for (int i = 0; i < asientos.length; i++) {
+						
+						entradas.add(espectaculo.procesarVenta(nombreEspectaculo, fecha, email, sector, asientos[i]));
+						
+					}
+				
+					return entradas;
 
-		return null;
+				} else {
+					throw new RuntimeException("Error: el espectaculo solicitado no existe o se ingresó un nombre incorrecto.");
+				}
+			} else {
+				throw new RuntimeException("Error: el usuario que solicita la entrada no está registrado o ingresó datos incorrectos.");
+			}
+		} catch (Exception e) {
+			throw new RuntimeException("Error en el procesamiento de la venta de entradas.");
+		}
 	}
 
 	@Override
 	public String listarFunciones(String nombreEspectaculo) {
-		// TODO Auto-generated method stub
-		return null;
+		
+		try {
+	
+			if(epectaculoValido(nombreEspectaculo)){
+	
+				String funciones = espectaculos.get(nombreEspectaculo).listarFunciones();
+				return funciones;
+			} else {
+				throw new RuntimeException("Error al listar las funciones del espectaculo.");
+			}
+
+		} catch (Exception ex) {
+			throw new RuntimeException("Error al listar las funciones del espectaculo", ex);
+		}
+
 	}
 
 	@Override
 	public List<IEntrada> listarEntradasEspectaculo(String nombreEspectaculo) {
-		// TODO Auto-generated method stub
-		return null;
+		
+		ArrayList<IEntrada> lista = new ArrayList<>();
+
+		for (Usuario user : usuarios.values()) {
+			
+			lista.addAll(user.listarEntradasPorEspectaculo(nombreEspectaculo));
+
+		}
+
+		return lista;
 	}
 
 	@Override
 	public List<IEntrada> listarEntradasFuturas(String email, String contrasenia) {
-		// TODO Auto-generated method stub
-		return null;
+		try {
+			
+			if(usuarioValido(email, contrasenia)){
+			
+				Usuario usuario = usuarios.get(email);
+				return usuario.listarEntradasFuturas();
+	
+			} else {
+				throw new RuntimeException("Error: no se puede listar las entradas porque los datos no corresponden a un usuario registrado.");
+			}
+
+		} catch (Exception ex) {
+			throw new RuntimeException("Error al listar entradas futuras", ex);
+		}
 	}
 
 	@Override
 	public List<IEntrada> listarTodasLasEntradasDelUsuario(String email, String contrasenia) {
-		// TODO Auto-generated method stub
-		return null;
+		
+		try {
+			
+			if(usuarioValido(email, contrasenia)){
+			
+				Usuario usuario = usuarios.get(email);
+				return usuario.listarEntradas();
+	
+			} else {
+				throw new RuntimeException("Error: no se puede listar las entradas porque los datos no corresponden a un usuario registrado.");
+			}
+
+		} catch (Exception ex) {
+			throw new RuntimeException("Error al listar entradas", ex);
+		}
+
 	}
 
 	@Override

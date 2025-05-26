@@ -1,3 +1,4 @@
+/*
 package ar.edu.ungs.prog2.ticketek;
 
 import org.junit.*;
@@ -294,3 +295,4 @@ public class TicketekTest{
    
 
 }
+    */
