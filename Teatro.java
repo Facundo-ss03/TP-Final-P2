@@ -7,5 +7,4 @@ public class Teatro extends SedesConPlateas{
         super(direccion, CAPACIDAD_MAXIMA, listaDeSectores, capacidadPorSector, ASIENTOS_X_FILA, porcentajesAdicionales);
         
     }
-
 }

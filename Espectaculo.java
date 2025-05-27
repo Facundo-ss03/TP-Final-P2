@@ -1,18 +1,22 @@
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 
 public class Espectaculo {
 
-    public Espectaculo(){
+    public Espectaculo(String nombreEspectaculo){
 
+        this.nombre = nombreEspectaculo;
         this.funciones = new HashMap<String, Funcion>();
-
+        
     }
 
+    private String nombre;
     private HashMap<String, Funcion> funciones;
 
-    public Entrada procesarVenta(String nombreEspectaculo, String fecha, String email){
+    //Procesa la venta de una entrada para una sede de tipo estadio.
+    public Entrada procesarVenta(String email, String nombreEspectaculo, String fecha){
 
         if(funciones.containsKey(fecha)){
 
@@ -26,7 +30,8 @@ public class Espectaculo {
         }
     }
 
-    public Entrada procesarVenta(String nombreEspectaculo, String fecha, String email, String sector, int asiento){
+    //Procesa la venta de una entrada para una sede de tipo Teatro o Miniteatro.
+    public Entrada procesarVenta(String email, String nombreEspectaculo, String fecha, String sector, int asiento){
 
         if(funciones.containsKey(fecha)){
 
@@ -40,6 +45,22 @@ public class Espectaculo {
         }
     }
 
+    public void eliminarEntrada(Entrada entrada){
+
+        String fecha;
+        Fecha fechaEntrada = entrada.getFecha();
+        DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/yy");
+        fecha = fechaEntrada.getFecha().format(formato);
+        Funcion funcion = funciones.get(fecha);
+
+        if(entrada.getSector() == "CAMPO"){
+            funcion.quitarEntrada();
+        } else {
+            funcion.quitarEntrada(entrada.getSector(), entrada.getNumeroDeAsiento());
+        }
+
+    }
+
     public String listarFunciones(){
 
         if(funciones.size() == 0){
@@ -49,7 +70,7 @@ public class Espectaculo {
         StringBuilder sb = new StringBuilder();
         for (Funcion elem : funciones.values()) {
             
-            sb.append(elem.toString() + "\n");
+            sb.append(elem.toString() + "\n\n");
 
         }
 
@@ -57,11 +78,11 @@ public class Espectaculo {
 
     }
 
-    public void agregarFuncion(String fecha, Sede sede, double precioBase){
+    public void agregarFuncion(String fecha, Sede sede, double precioBase, String nombreSede){
 
         if(!funciones.containsKey(fecha)){
 
-            funciones.put(fecha, new Funcion(sede, precioBase));
+            funciones.put(fecha, new Funcion(sede, precioBase, nombreSede));
         
         }
 
@@ -71,12 +92,9 @@ public class Espectaculo {
     public String toString() {
         
         StringBuilder sb = new StringBuilder();
-
-        for (Funcion elem : funciones.values()) {
-         
-            sb.append(elem.toString());   
+        sb.append("\nnombre: " + nombre);
         
-        }
+        sb.append("\n" + "Cantidad de funciones: " + funciones.size());
 
         return sb.toString();
 

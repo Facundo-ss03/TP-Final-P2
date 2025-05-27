@@ -39,22 +39,21 @@ public abstract class SedesConPlateas extends Sede {
         }
     }
 
-    public boolean consultarDisponibilidadDeAsiento(String sector, int asiento){
+    @Override
+    public String toString() {
+        
+        StringBuilder sb = new StringBuilder();
+        sb.append(super.toString());
+        
+        sb.append("Sectores: ");
+        for (String elem : sectores.keySet()) {
+            
+            sb.append(elem + ", ");
 
-        if(!sectores.containsKey(sector)){
-            throw new RuntimeException("Error: el sector solicitado no existe.");
         }
-        if(asiento <= 0){
-            throw new RuntimeException("Error: el asiento solicitado es inválido.");
-        }
 
-        Sector sectorSolicitado = sectores.get(sector);
-        sectorSolicitado.calcularFila(asiento);
+        sb.append("\n");
 
-
-
+        return sb.toString();
     }
-
-
-
 }

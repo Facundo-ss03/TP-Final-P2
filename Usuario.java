@@ -22,9 +22,8 @@ public class Usuario {
         if(contraseña.trim().isEmpty()){
             throw new RuntimeException("Error: la contraseña ingresada es inválida.");
         }
-        
-        if(contraseña.equals(this.contraseña)) return true;
-        else return false;
+        if(this.contraseña.equals(contraseña)) return true;
+            else return false;
         
     }
 
@@ -70,18 +69,28 @@ public class Usuario {
 
     }
 
+    public void eliminarEntrada(String codigo){
+
+        if(entradas.containsKey(codigo)){
+
+            entradas.remove(codigo);
+
+        }
+
+    }
+
     @Override
     public String toString() {
 
         StringBuilder sb = new StringBuilder();
 
-        sb.append("Nombre: " + nombre + " ");
-        sb.append("Apellido: " + apellido);
-        sb.append("Contraseña: " + contraseña);
+        sb.append("\n" + "Nombre: " + nombre + " ");
+        sb.append("\n" + "Apellido: " + apellido);
+        sb.append("\n" + "Contraseña: " + contraseña);
         
-        sb.append("Entradas: \n");
+        sb.append("\nEntradas: \n");
         
-        for (IEntrada elem : entradas.values()) {
+        for (Entrada elem : entradas.values()) {
 
             sb.append(elem.toString() + "\n");
 

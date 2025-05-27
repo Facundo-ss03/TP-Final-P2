@@ -5,7 +5,7 @@ public class Estadio extends Sede{
         
         super(direccion, capMaxima);
 
-        sector = "CAMPO";
+        this.sector = "CAMPO";
 
     }
 
@@ -13,5 +13,15 @@ public class Estadio extends Sede{
 
     public String getSector(){
         return sector;
+    }
+
+    @Override
+    public String toString() {
+        
+        StringBuilder sb = new StringBuilder();
+        sb.append(super.toString());
+        sb.append("Sector: " + sector + "\n");
+        
+        return sb.toString();
     }
 }

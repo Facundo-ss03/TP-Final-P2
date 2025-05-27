@@ -3,6 +3,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.management.RuntimeErrorException;
 
@@ -61,21 +62,19 @@ public class Ticketek implements ITicketek{
 	@Override
 	public void registrarUsuario(String email, String nombre, String apellido, String contrasenia) {
 		
-		if(email.trim().isEmpty()){
-			throw new RuntimeException("Error: el email ingresado es inválido");
-		}
-		if(usuarios.containsKey(email)){
-			throw new RuntimeException("Error: el usuario ya existe.");
-		} 
-		else {
+		try {
 
-			try {
-				
-				usuarios.put(email, new Usuario(nombre, apellido, contrasenia));
-			
-			} catch (Exception ex) {
-				throw new RuntimeException(ex.getMessage());
+			if(emailValido(email) == false){
+				throw new RuntimeException("Error: el email ingresado es inválido");
 			}
+			if(usuarios.containsKey(email) == true){
+				throw new RuntimeException("Error: el usuario ya existe.");
+			}
+				
+			usuarios.put(email, new Usuario(nombre, apellido, contrasenia));
+			
+		} catch (Exception ex) {
+			throw new RuntimeException("Error al registrar el usuario.", ex);
 		}
 	}
 
@@ -83,14 +82,12 @@ public class Ticketek implements ITicketek{
 	public void registrarEspectaculo(String nombre) {
 		
 		if(espectaculos.containsKey(nombre)){
-
 			throw new RuntimeException("Error: el espectaculo ya existe.");
-
 		} else {
 
 			try {
 				
-				espectaculos.put(nombre, new Espectaculo());
+				espectaculos.put(nombre, new Espectaculo(nombre));
 			
 			} catch (Exception ex) {
 				throw new RuntimeException(ex.getMessage());
@@ -122,7 +119,7 @@ public class Ticketek implements ITicketek{
 				Espectaculo espectaculo = espectaculos.get(nombreEspectaculo);
 				Sede sede = sedes.get(nombreSede);
 	
-				espectaculo.agregarFuncion(fechaFuncion, sede, precioBase);
+				espectaculo.agregarFuncion(fechaFuncion, sede, precioBase, nombreSede);
 			
 			}
 
@@ -147,7 +144,7 @@ public class Ticketek implements ITicketek{
 		
 					for (int i = 0; i < cantidadEntradas; i++) {
 						
-						entradas.add(espectaculo.procesarVenta(nombreEspectaculo, fecha, email));
+						entradas.add(espectaculo.procesarVenta(email, nombreEspectaculo, fecha));
 						
 					}
 				
@@ -167,28 +164,38 @@ public class Ticketek implements ITicketek{
 
 	private boolean usuarioValido(String email, String contrasenia){
 
-		if(emailValido(email) && usuarios.containsKey(email)){
-
+		boolean resultado;
+		if(usuarios.containsKey(email)){
+	
 			Usuario usuario = usuarios.get(email);
-
-			if(usuario.validarContraseña(contrasenia) == true) return true;
-				else return false;
+	
+			if(usuario.validarContraseña(contrasenia)){
+				resultado = true;
+			} else {
+				resultado = false;
+			}
 
 		} else {
-			throw new RuntimeException("Error al validar al usuario.");
+			resultado = false;
 		}
+		return resultado;
 	}
 
 	private boolean emailValido(String email){
-		if(email.trim().isEmpty() == false) return true;
-			else return false;
+		if(email.isEmpty() == false){
+
+			return true;
+
+		} else {
+			return false;
+		
+		}
 	}
 
 	private boolean epectaculoValido(String nombreEspectaculo){
 		if(nombreEspectaculo.trim().isEmpty() == false && espectaculos.containsKey(nombreEspectaculo)) return true;
 			else return false;
 	}
-
 
 	@Override
 	public List<IEntrada> venderEntrada(String nombreEspectaculo, String fecha, String email, String contrasenia,
@@ -202,10 +209,10 @@ public class Ticketek implements ITicketek{
 				
 					Espectaculo espectaculo = espectaculos.get(nombreEspectaculo); // terminar
 					List<IEntrada> entradas = new ArrayList<IEntrada>();
-		
+
 					for (int i = 0; i < asientos.length; i++) {
 						
-						entradas.add(espectaculo.procesarVenta(nombreEspectaculo, fecha, email, sector, asientos[i]));
+						entradas.add(espectaculo.procesarVenta(email, nombreEspectaculo, fecha, sector, asientos[i]));
 						
 					}
 				
@@ -217,8 +224,8 @@ public class Ticketek implements ITicketek{
 			} else {
 				throw new RuntimeException("Error: el usuario que solicita la entrada no está registrado o ingresó datos incorrectos.");
 			}
-		} catch (Exception e) {
-			throw new RuntimeException("Error en el procesamiento de la venta de entradas.");
+		} catch (Exception ex) {
+			throw new RuntimeException("Error en el procesamiento de la venta de entradas.", ex);
 		}
 	}
 
@@ -295,7 +302,23 @@ public class Ticketek implements ITicketek{
 
 	@Override
 	public boolean anularEntrada(IEntrada entrada, String contrasenia) {
-		// TODO Auto-generated method stub
+		
+		if(entrada instanceof Entrada){
+
+			Entrada entry = (Entrada) entrada;
+			Usuario user = usuarios.get(entry.getEmail());
+			if(user.validarContraseña(contrasenia)){
+
+				user.eliminarEntrada(entry.getCodigoDeEntrada());
+
+				Espectaculo espectaculo = espectaculos.get(entry.getEspectaculo());
+				espectaculo.eliminarEntrada(entry);
+				
+				return true;
+			}
+
+		}
+		
 		return false;
 	}
 
@@ -335,4 +358,35 @@ public class Ticketek implements ITicketek{
 		return 0;
 	}
 	
+	@Override
+	public String toString() {
+		
+		StringBuilder sb = new StringBuilder("Información del sistema:\n\n");
+		
+		sb.append("\n====================Usuarios====================\n");
+		
+		for (Usuario elem : usuarios.values()) {
+			
+			sb.append(elem.toString());
+
+		}
+		
+		sb.append("\n====================Sedes====================\n\n");
+		
+		for (Map.Entry<String, Sede> entry : sedes.entrySet()) {
+			
+			sb.append(entry.getKey() + entry.toString());
+			sb.append("\n");
+		}
+
+		sb.append("\n====================Espectaculos====================\n");
+		for (Espectaculo elem : espectaculos.values()) {
+			sb.append(elem.toString());
+			sb.append("\n");
+		}
+
+		return sb.toString();
+
+	}
+
 }

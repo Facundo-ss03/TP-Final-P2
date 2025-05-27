@@ -1,77 +1,119 @@
-import java.time.LocalDate;
-import java.util.ArrayList;
+
+import java.util.HashMap;
+import java.util.HashSet;
 
 public class Funcion {
     
-    public Funcion(Sede sede, double precio){
+    public Funcion(Sede sede, double precio, String nombreSede){
         
         this.sede = sede;
+        this.nombreSede = nombreSede;
         this.precioBase = precio;
-        this.asientosVendidos = new ArrayList<Integer>();
+        this.asientosVendidos = new HashMap<String, HashSet<Integer>>();
+        if(sede.getClass() != Estadio.class){
+
+            asientosVendidos.put("Platea VIP", new HashSet<>());
+            asientosVendidos.put("Platea Común", new HashSet<>());
+            asientosVendidos.put("Platea Baja", new HashSet<>());
+            asientosVendidos.put("Platea Alta", new HashSet<>());
+
+        } else {
+
+            this.asientosVendidosEstadio = 0;
+        
+        }
     }
 
     private Sede sede;
+    private String nombreSede;
     private double precioBase;
-    private ArrayList<Integer> asientosVendidos;    //anularEntrada() debe eliminar de este array los asientos de las entradas anuladas
-
+    private HashMap<String, HashSet<Integer>> asientosVendidos;  //<codigoEntrada, nroAsiento>  //anularEntrada() debe eliminar de este mapa los asientos de las entradas anuladas
+    private int asientosVendidosEstadio;
 
     public Entrada crearEntrada(String emailUsuario, String nombreDeEspectaculo, String fechaDeFuncion) {
 
-        Estadio estadio = (Estadio) sede;
+        if(consultarDisponibilidadDeAsiento()){
 
-        String ubicacion = estadio.getDireccion();
-        String sector = estadio.getSector();
-        Fecha fecha = new Fecha(fechaDeFuncion);
-
-        Entrada entrada = new Entrada(emailUsuario, nombreDeEspectaculo, ubicacion, sector, fecha, precioBase);
-
-        return entrada;
+            Estadio estadio = (Estadio) sede;
+    
+            Fecha fecha = new Fecha(fechaDeFuncion);
+            String ubicacion = estadio.getSector();
+            
+            Entrada entrada = new Entrada(emailUsuario, nombreDeEspectaculo, nombreSede, fecha, precioBase);
+            asientosVendidosEstadio++;
+    
+            return entrada;
+        } else {
+            throw new RuntimeException("No hay entradas disponibles (el estadio está lleno).");
+        }
 
     }
 
    
-    public Entrada crearEntrada(String emailUsuario, String nombreDeEspectaculo, String fechaDeFuncion, String sector, int asiento) {
+    public Entrada crearEntrada(String emailUsuario, String nombreDeEspectaculo,
+                                String fechaDeFuncion, String sector, int asiento) {
 
-        if(consultarDisponibilidadDeAsiento(asiento)){
+        Entrada entrada;
+
+        if(consultarDisponibilidadDeAsiento(asiento) == false){
             
             if(sede.getClass() == Teatro.class){
         
-                Teatro teatro = (Teatro) sede;
-                String ubicacion = teatro.getDireccion();
-                if(teatro.consultarDisponibilidadDeAsiento(sector, asiento)){
+                Teatro sedeSeleccionada = (Teatro) sede;
+            
+                int fila = sedeSeleccionada.buscarFila(sector, asiento);
+                Fecha fecha = new Fecha(fechaDeFuncion);
+
+                StringBuilder sb = new StringBuilder();
+                sb.append(sector + " " + "f: " + fila + "a: " + asiento);
         
-                    int fila = teatro.buscarFila(sector, asiento);
-                    
-                }
+                entrada = new Entrada(emailUsuario, nombreDeEspectaculo, nombreSede, sector, fila, asiento, fecha, precioBase);
+                asientosVendidos.get(sector).add(asiento);
+
+                return entrada;
             }
+            else if(sede.getClass() == MiniTeatro.class){
+
+                MiniTeatro sedeSeleccionada = (MiniTeatro) sede;
+
+                int fila = sedeSeleccionada.buscarFila(sector, asiento);
+                Fecha fecha = new Fecha(fechaDeFuncion);
+
+                StringBuilder sb = new StringBuilder();
+                sb.append(sector + " " + "f: " + fila + " a: " + asiento);
+        
+                entrada = new Entrada(emailUsuario, nombreDeEspectaculo, nombreSede, sector, asiento, fila, fecha, precioBase);
+                asientosVendidos.get(sector).add(asiento);
+        
+                return entrada;
+            } 
+            else{
+                throw new RuntimeException("Error: La sede ingresada no es un Teatro ni Miniteatro.");
+            }
+
+        } else {
+            throw new RuntimeException("El asiento solicitado no está disponible.");
         }
+    }
 
-        Fecha fecha = new Fecha(fechaDeFuncion);
-
-        Entrada entrada = new Entrada(emailUsuario, nombreDeEspectaculo, ubicacion, sector, fecha, precioBase);
-
-        return entrada;
-
+    private boolean consultarDisponibilidadDeAsiento(){
+        if(asientosVendidosEstadio < sede.getCapacidadMaxima()) return true;
+            else return false;
     }
 
     private boolean consultarDisponibilidadDeAsiento(int asiento){
-        if(asientosVendidos.contains(asientosVendidos)) return false;
-            return true;
+        if(asientosVendidos.values().contains(asiento)) return true;
+            else return false;
     }
 
+    public void  quitarEntrada(String sector, int asiento){
 
-    private boolean agregarAsientoVendido(){
+        asientosVendidos.get(sector).remove(asiento);    
 
-        if(asientosVendidos.size() < sede.getCapacidadMaxima()){
+    }
 
-            asientosVendidos.add(1);
-            return true;
-        
-        } else {
-        
-            return false;
-        
-        }
+    public void quitarEntrada(){
+        asientosVendidosEstadio -= 1;
     }
 
     @Override
@@ -79,13 +121,23 @@ public class Funcion {
         
         StringBuilder sb = new StringBuilder();
 
-        sb.append("Sede: " + sede);
+        if(asientosVendidos == null){
 
-        for (Integer integer : asientosVendidos) {
-            
-            sb.append("Entradas Vendidas: " + integer);
+                sb.append("Entradas Vendidas: " + asientosVendidosEstadio);
+    
+        } else {
+
+            sb.append("Entradas Vendidas: ");
+
+            for (String sector : asientosVendidos.keySet()) {
+                
+                sb.append(sector + ": ");
+                sb.append(asientosVendidos.get(sector).size());
+
+            }
 
         }
+
 
         sb.append("Precio Base: " + precioBase);
 

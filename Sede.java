@@ -5,18 +5,18 @@ public abstract class Sede{
 		
 		boolean direccionValida = direccion.trim().isEmpty();
 		boolean capacidadValida = CAPACIDAD_MAXIMA > 0;
-		boolean datosValidos = direccionValida && capacidadValida;
+		boolean datosValidos = !direccionValida && capacidadValida;
 		
 		if(datosValidos){
 
-			this.capacidadMaxima = CAPACIDAD_MAXIMA;
 			this.direccion = direccion;
+			this.capacidadMaxima = CAPACIDAD_MAXIMA;
 		
 		}
 	}
 	
-	private int capacidadMaxima;
 	private String direccion;
+	private int capacidadMaxima;
 	
 	public String getDireccion(){
 		return direccion;
@@ -24,6 +24,16 @@ public abstract class Sede{
 
 	public int getCapacidadMaxima(){
 		return capacidadMaxima;
+	}
+
+	@Override
+	public String toString() {
+		
+		StringBuilder sb = new StringBuilder();
+		sb.append("Dirección: " + direccion + "\n");
+		sb.append("Capacidad máxima: " + capacidadMaxima + "\n");
+
+		return sb.toString();
 	}
 
 }

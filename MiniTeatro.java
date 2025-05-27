@@ -20,11 +20,4 @@ public class MiniTeatro extends SedesConPlateas{
 
     }
 
-    @Override
-    public boolean consultarDisponibilidadDeAsiento(String sector, int asiento) {
-        
-        
-
-    }
-
 }
