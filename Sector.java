@@ -14,9 +14,9 @@ public class Sector {
     private int ASIENTOS_X_FILA;
 
     //Calcula el costo final de la entrada según el sector.
-    public int calcularCosto(int PRECIO_BASE){
+    public double calcularCosto(double PRECIO_BASE){
 
-        int PRECIO_FINAL = PRECIO_BASE + ((PRECIO_BASE*ADICIONAL)/100);
+        double PRECIO_FINAL = PRECIO_BASE + ((PRECIO_BASE*ADICIONAL)/100);
 
         return PRECIO_FINAL;
 

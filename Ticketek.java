@@ -141,11 +141,14 @@ public class Ticketek implements ITicketek{
 				
 					Espectaculo espectaculo = espectaculos.get(nombreEspectaculo); // terminar
 					List<IEntrada> entradas = new ArrayList<IEntrada>();
+					Usuario comprador = usuarios.get(email);
 		
 					for (int i = 0; i < cantidadEntradas; i++) {
 						
-						entradas.add(espectaculo.procesarVenta(email, nombreEspectaculo, fecha));
+						Entrada nuevaEntrada = espectaculo.procesarVenta(email, nombreEspectaculo, fecha);
 						
+						entradas.add(nuevaEntrada);
+						comprador.agregarEntrada(nuevaEntrada);
 					}
 				
 					return entradas;
@@ -209,11 +212,13 @@ public class Ticketek implements ITicketek{
 				
 					Espectaculo espectaculo = espectaculos.get(nombreEspectaculo); // terminar
 					List<IEntrada> entradas = new ArrayList<IEntrada>();
+					Usuario comprador = usuarios.get(email);
 
 					for (int i = 0; i < asientos.length; i++) {
 						
-						entradas.add(espectaculo.procesarVenta(email, nombreEspectaculo, fecha, sector, asientos[i]));
-						
+						Entrada nuevaEntrada = espectaculo.procesarVenta(email, nombreEspectaculo, fecha, sector, asientos[i]);
+						entradas.add(nuevaEntrada);
+						comprador.agregarEntrada(nuevaEntrada);
 					}
 				
 					return entradas;
@@ -318,20 +323,56 @@ public class Ticketek implements ITicketek{
 			}
 
 		}
-		
+
 		return false;
 	}
 
 	@Override
 	public IEntrada cambiarEntrada(IEntrada entrada, String contrasenia, String fecha, String sector, int asiento) {
-		// TODO Auto-generated method stub
-		return null;
+	
+		Entrada entry = (Entrada) entrada;
+		int[] nuevoAsiento = {asiento};
+
+		try {
+			
+			if(usuarioValido(entry.getEmail(), contrasenia)){
+	
+				usuarios.get(entry.getEmail()).eliminarEntrada(entry.getCodigoDeEntrada());	//le quito la entrada al usuario
+				entrada = venderEntrada(entry.getEspectaculo(), entry.getFecha().toString(), entry.getEmail(), contrasenia, sector, nuevoAsiento).get(0);
+				Espectaculo espectaculo = espectaculos.get(entry.getEspectaculo());
+				espectaculo.eliminarEntrada(entry);
+
+				
+			}
+	
+			return entrada;
+
+		} catch (Exception ex) {
+			throw new RuntimeException("Error al cambiar la entrada.", ex);
+		}
 	}
 
 	@Override
-	public IEntrada cambiarEntrada(IEntrada entrada, String contrasenia, String fecha) {
-		// TODO Auto-generated method stub
-		return null;
+	public IEntrada cambiarEntrada(IEntrada entrada, String contrasenia, String fecha) {		
+
+		try {
+			
+			Entrada entry = (Entrada) entrada;
+
+			if(usuarioValido(entry.getEmail(), contrasenia)){
+	
+				usuarios.get(entry.getEmail()).eliminarEntrada(entry.getCodigoDeEntrada());	//le quito la entrada al usuario
+				entrada = venderEntrada(entry.getEspectaculo(), fecha, entry.getEmail(), contrasenia, 1).get(0);	//y le asigno una nueva
+				Espectaculo espectaculo = espectaculos.get(entry.getEspectaculo());
+				espectaculo.eliminarEntrada(entry);
+			}
+	
+			return entrada;
+
+		} catch (Exception ex) {
+			throw new RuntimeException("Error al cambiar la entrada.", ex);
+		}
+
 	}
 
 	@Override

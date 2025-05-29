@@ -24,8 +24,9 @@ public class Entrada implements IEntrada{
         this.sede = nombreSede;
         this.asiento = numeroDeAsiento;
         this.fila = numeroDeFila;
+        this.sector = sector;
 
-        this.ubicacion = "f: " + numeroDeFila + " a: " + numeroDeAsiento;
+        this.ubicacion = sector + " - " + "f: " + numeroDeFila + " a: " + numeroDeAsiento;
 
         this.fecha = fechaDeFuncion;
         this.costoTotal = precio;
@@ -92,14 +93,11 @@ public class Entrada implements IEntrada{
 
         StringBuilder sb = new StringBuilder();
 
-        sb.append(
-                "Código: " + codigoEntrada + 
-                " Espectaculo: " + espectaculo + 
-                " Ubicación: " + ubicacion + 
-                " Precio Final: " + costoTotal +  
-                " Ubicación: " + ubicacion + 
-                " Fecha: " + fecha.toString()
-                );
+        sb.append(" - " + codigoEntrada);
+        sb.append(" - " + espectaculo);
+        sb.append(" - " + fecha.toString());
+        sb.append(" - " + sede);
+        sb.append(" - " + ubicacion + " - ");
 
         return sb.toString();
     }

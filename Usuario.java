@@ -17,6 +17,12 @@ public class Usuario {
     private String contraseña;
     private HashMap<String, Entrada> entradas;
 
+    public void agregarEntrada(Entrada nuevaEntrada){
+
+        entradas.put(nuevaEntrada.getCodigoDeEntrada(), nuevaEntrada);
+
+    }
+
     public boolean validarContraseña(String contraseña){
         
         if(contraseña.trim().isEmpty()){
@@ -27,13 +33,18 @@ public class Usuario {
         
     }
 
-    public List<IEntrada> listarEntradasPorEspectaculo(String espectaculo){
+    public List<Entrada> listarEntradasPorEspectaculo(String espectaculo){
 
-        ArrayList<IEntrada> lista = new ArrayList<IEntrada>();
+        ArrayList<Entrada> lista = new ArrayList<Entrada>();
 
         for (Entrada elem : entradas.values()) {
+        
+            if(elem.getEspectaculo().equals(espectaculo)){
             
-            if(elem.getEspectaculo().equals(espectaculo)) lista.add(elem);
+                lista.add(elem);
+           
+            }
+
         }
 
         return lista;

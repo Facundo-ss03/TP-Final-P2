@@ -34,15 +34,13 @@ public class Funcion {
 
         if(consultarDisponibilidadDeAsiento()){
 
-            Estadio estadio = (Estadio) sede;
-    
             Fecha fecha = new Fecha(fechaDeFuncion);
-            String ubicacion = estadio.getSector();
             
             Entrada entrada = new Entrada(emailUsuario, nombreDeEspectaculo, nombreSede, fecha, precioBase);
             asientosVendidosEstadio++;
     
             return entrada;
+
         } else {
             throw new RuntimeException("No hay entradas disponibles (el estadio está lleno).");
         }
@@ -54,7 +52,7 @@ public class Funcion {
                                 String fechaDeFuncion, String sector, int asiento) {
 
         Entrada entrada;
-
+        
         if(consultarDisponibilidadDeAsiento(asiento) == false){
             
             if(sede.getClass() == Teatro.class){
@@ -66,8 +64,10 @@ public class Funcion {
 
                 StringBuilder sb = new StringBuilder();
                 sb.append(sector + " " + "f: " + fila + "a: " + asiento);
-        
-                entrada = new Entrada(emailUsuario, nombreDeEspectaculo, nombreSede, sector, fila, asiento, fecha, precioBase);
+                
+                double precioFinal = sedeSeleccionada.calcularCostoTotal(sector, precioBase);
+
+                entrada = new Entrada(emailUsuario, nombreDeEspectaculo, nombreSede, sector, fila, asiento, fecha, precioFinal);
                 asientosVendidos.get(sector).add(asiento);
 
                 return entrada;
@@ -82,7 +82,9 @@ public class Funcion {
                 StringBuilder sb = new StringBuilder();
                 sb.append(sector + " " + "f: " + fila + " a: " + asiento);
         
-                entrada = new Entrada(emailUsuario, nombreDeEspectaculo, nombreSede, sector, asiento, fila, fecha, precioBase);
+                double precioFinal = sedeSeleccionada.calcularCostoTotal(sector, precioBase);
+
+                entrada = new Entrada(emailUsuario, nombreDeEspectaculo, nombreSede, sector, asiento, fila, fecha, precioFinal);
                 asientosVendidos.get(sector).add(asiento);
         
                 return entrada;

@@ -92,7 +92,10 @@ public class Fecha{
 
     @Override
     public String toString() {
-        return fechaParseada.toString();
+
+        String fechaOriginal = fechaParseada.format(formato);
+
+        return fechaOriginal;
     }
 
 

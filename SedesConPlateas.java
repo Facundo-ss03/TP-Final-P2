@@ -14,6 +14,24 @@ public abstract class SedesConPlateas extends Sede {
 
     protected HashMap<String, Sector> sectores;
 
+    public double calcularCostoTotal(String sector, double precioBase){
+
+        try {
+            
+            if(sectores.containsKey(sector)){
+    
+                return sectores.get(sector).calcularCosto(precioBase);
+                
+            } else {
+                throw new RuntimeException("Error: el sector ingresado no existe.");
+            }
+
+        } catch (Exception ex) {
+            throw new RuntimeException("Error al calcular el costo total", ex);
+        }
+
+    }
+
     private void configurarSectores(String[] listaDeSectores, int[] capacidadPorSector, int ASIENTOS_X_FILA, int[] porcentajesAdicionales){
         
         for (int i = 0; i < listaDeSectores.length; i++) {

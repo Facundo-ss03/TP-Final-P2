@@ -14,9 +14,10 @@ public class MiniTeatro extends SedesConPlateas{
     private int puestos;
     private double consumicionLibre;
     
-    public double agregarConsumicion(){
-
-        return consumicionLibre;
+    @Override
+    public double calcularCostoTotal(String sector, double precioBase) {
+        
+        return super.calcularCostoTotal(sector, precioBase) + consumicionLibre;
 
     }
 
