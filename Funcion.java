@@ -47,7 +47,6 @@ public class Funcion {
 
     }
 
-   
     public Entrada crearEntrada(String emailUsuario, String nombreDeEspectaculo,
                                 String fechaDeFuncion, String sector, int asiento) {
 
@@ -67,7 +66,7 @@ public class Funcion {
                 
                 double precioFinal = sedeSeleccionada.calcularCostoTotal(sector, precioBase);
 
-                entrada = new Entrada(emailUsuario, nombreDeEspectaculo, nombreSede, sector, fila, asiento, fecha, precioFinal);
+                entrada = new Entrada(emailUsuario, nombreDeEspectaculo, nombreSede, sector, asiento, fila, fecha, precioFinal);
                 asientosVendidos.get(sector).add(asiento);
 
                 return entrada;
@@ -116,6 +115,31 @@ public class Funcion {
 
     public void quitarEntrada(){
         asientosVendidosEstadio -= 1;
+    }
+
+    public double calcularCostoFinal(){
+
+        return precioBase;
+
+    }
+
+    public double calcularCostoFinal(String sector){
+
+        try {
+            
+            if(sede instanceof SedesConPlateas){
+    
+                SedesConPlateas s = (SedesConPlateas) sede;
+                return s.calcularCostoTotal(sector, precioBase);
+    
+            } else {
+                throw new RuntimeException("Error: la sede de la función no tiene plateas.");
+            }
+
+        } catch (Exception ex) {
+            throw new RuntimeException("Error al calcular el costo total.", ex);
+        }
+
     }
 
     @Override

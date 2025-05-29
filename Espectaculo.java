@@ -88,6 +88,41 @@ public class Espectaculo {
 
     }
 
+    public double obtenerCosto(String fecha){
+
+        try {
+            
+            if(funciones.containsKey(fecha)){
+    
+                return funciones.get(fecha).calcularCostoFinal();
+    
+            } else {
+                throw new RuntimeException("Error: la fecha ingresada no corresponde a ninguna función registrada.");
+            }
+            
+        } catch (Exception ex) {
+            throw new RuntimeException(ex);
+        }
+
+    }
+
+    public double obtenerCosto(String fecha, String sector){
+        
+        try {
+            
+            if(funciones.containsKey(fecha)){
+    
+                return funciones.get(fecha).calcularCostoFinal(sector);
+    
+            } else {
+                throw new RuntimeException("Error: la fecha ingresada no corresponde a ninguna función registrada.");
+            }
+            
+        } catch (Exception ex) {
+            throw new RuntimeException(ex);
+        }
+    }
+
     @Override
     public String toString() {
         

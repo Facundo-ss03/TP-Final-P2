@@ -377,14 +377,39 @@ public class Ticketek implements ITicketek{
 
 	@Override
 	public double costoEntrada(String nombreEspectaculo, String fecha) {
-		// TODO Auto-generated method stub
-		return 0;
+		
+		try {
+			
+			if(epectaculoValido(nombreEspectaculo)){
+	
+				return espectaculos.get(nombreEspectaculo).obtenerCosto(fecha);
+	
+			} else {
+				throw new RuntimeException("Error: el espectaculo solicitado es inválido.");
+			}
+
+		} catch (Exception ex) {
+			throw new RuntimeException("Error al obtener el costo de la entrada", ex);
+		}
+
 	}
 
 	@Override
 	public double costoEntrada(String nombreEspectaculo, String fecha, String sector) {
-		// TODO Auto-generated method stub
-		return 0;
+		
+		try {
+			
+			if(epectaculoValido(nombreEspectaculo)){
+	
+				return espectaculos.get(nombreEspectaculo).obtenerCosto(fecha, sector);
+	
+			} else {
+				throw new RuntimeException("Error: el espectaculo solicitado es inválido.");
+			}
+
+		} catch (Exception ex) {
+			throw new RuntimeException("Error al obtener el costo de la entrada", ex);
+		}
 	}
 
 	@Override
