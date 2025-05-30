@@ -441,7 +441,7 @@ public class Ticketek implements ITicketek{
 		
 		for (Map.Entry<String, Sede> entry : sedes.entrySet()) {
 			
-			sb.append(entry.getKey() + entry.toString());
+			sb.append(entry.toString());
 			sb.append("\n");
 		}
 

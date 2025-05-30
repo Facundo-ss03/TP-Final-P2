@@ -19,7 +19,7 @@ public class Estadio extends Sede{
     public String toString() {
         
         StringBuilder sb = new StringBuilder();
-        sb.append(super.toString());
+        sb.append("\n"+ super.toString());
         sb.append("Sector: " + sector + "\n");
         
         return sb.toString();

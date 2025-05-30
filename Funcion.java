@@ -64,7 +64,7 @@ public class Funcion {
                 StringBuilder sb = new StringBuilder();
                 sb.append(sector + " " + "f: " + fila + "a: " + asiento);
                 
-                double precioFinal = sedeSeleccionada.calcularCostoTotal(sector, precioBase);
+                double precioFinal = sedeSeleccionada.calcularCostoConAdicional(sector, precioBase);
 
                 entrada = new Entrada(emailUsuario, nombreDeEspectaculo, nombreSede, sector, asiento, fila, fecha, precioFinal);
                 asientosVendidos.get(sector).add(asiento);
@@ -81,7 +81,7 @@ public class Funcion {
                 StringBuilder sb = new StringBuilder();
                 sb.append(sector + " " + "f: " + fila + " a: " + asiento);
         
-                double precioFinal = sedeSeleccionada.calcularCostoTotal(sector, precioBase);
+                double precioFinal = sedeSeleccionada.calcularCostoConAdicional(sector, precioBase);
 
                 entrada = new Entrada(emailUsuario, nombreDeEspectaculo, nombreSede, sector, asiento, fila, fecha, precioFinal);
                 asientosVendidos.get(sector).add(asiento);
@@ -130,7 +130,7 @@ public class Funcion {
             if(sede instanceof SedesConPlateas){
     
                 SedesConPlateas s = (SedesConPlateas) sede;
-                return s.calcularCostoTotal(sector, precioBase);
+                return s.calcularCostoConAdicional(sector, precioBase);
     
             } else {
                 throw new RuntimeException("Error: la sede de la función no tiene plateas.");

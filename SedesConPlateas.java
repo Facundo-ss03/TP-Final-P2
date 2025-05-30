@@ -14,7 +14,7 @@ public abstract class SedesConPlateas extends Sede {
 
     protected HashMap<String, Sector> sectores;
 
-    public double calcularCostoTotal(String sector, double precioBase){
+    public double calcularCostoConAdicional(String sector, double precioBase){
 
         try {
             
@@ -61,7 +61,7 @@ public abstract class SedesConPlateas extends Sede {
     public String toString() {
         
         StringBuilder sb = new StringBuilder();
-        sb.append(super.toString());
+        sb.append("\n"+ super.toString());
         
         sb.append("Sectores: ");
         for (String elem : sectores.keySet()) {
