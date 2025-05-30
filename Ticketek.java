@@ -1,11 +1,8 @@
 
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import javax.management.RuntimeErrorException;
 
 public class Ticketek implements ITicketek{
 
@@ -14,12 +11,14 @@ public class Ticketek implements ITicketek{
 		this.usuarios = new HashMap<String, Usuario>();
 		this.espectaculos = new HashMap<String, Espectaculo>();
 		this.sedes = new HashMap<String, Sede>();
-
+		this.recaudacionDeEspectaculos = new HashMap<String, Double>();
 	}
 
 	private HashMap<String, Usuario> usuarios;
 	private HashMap<String, Espectaculo> espectaculos;
 	private HashMap<String, Sede> sedes;
+
+	private HashMap<String, Double> recaudacionDeEspectaculos;
 
 	@Override
 	public void registrarSede(String nombre, String direccion, int capacidadMaxima) {
