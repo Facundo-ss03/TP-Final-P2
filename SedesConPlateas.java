@@ -1,4 +1,6 @@
+
 import java.util.HashMap;
+import java.util.Set;
 
 public abstract class SedesConPlateas extends Sede {
 
@@ -35,9 +37,7 @@ public abstract class SedesConPlateas extends Sede {
     private void configurarSectores(String[] listaDeSectores, int[] capacidadPorSector, int ASIENTOS_X_FILA, int[] porcentajesAdicionales){
         
         for (int i = 0; i < listaDeSectores.length; i++) {
-            
             sectores.put(listaDeSectores[i], new Sector(capacidadPorSector[i], ASIENTOS_X_FILA, porcentajesAdicionales[i]));
-
         }
     }
 
@@ -55,6 +55,12 @@ public abstract class SedesConPlateas extends Sede {
             throw new RuntimeException("No existe el asiento en el sector solicitado");
 
         }
+    }
+    
+    public Set<String> listarSectores(){
+
+        return sectores.keySet();
+
     }
 
     @Override

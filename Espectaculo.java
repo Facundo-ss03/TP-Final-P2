@@ -1,5 +1,4 @@
 
-import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 
@@ -80,10 +79,12 @@ public class Espectaculo {
 
     public void agregarFuncion(String fecha, Sede sede, double precioBase, String nombreSede){
 
-        if(!funciones.containsKey(fecha)){
+        if(funciones.containsKey(fecha)){
+        	throw new RuntimeException("La fecha ya está ocupada por otra función.");
+        } else {
+        	
+        	funciones.put(fecha, new Funcion(sede, precioBase, nombreSede));
 
-            funciones.put(fecha, new Funcion(sede, precioBase, nombreSede));
-        
         }
 
     }

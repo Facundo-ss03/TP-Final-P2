@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+
 public class Ticketek implements ITicketek{
 
 	public Ticketek() {
@@ -22,11 +23,18 @@ public class Ticketek implements ITicketek{
 
 	@Override
 	public void registrarSede(String nombre, String direccion, int capacidadMaxima) {
-
-		if(!sedes.containsKey(nombre) && !nombre.trim().isEmpty()){
-			sedes.put(nombre, new Estadio(direccion, capacidadMaxima));		
+	
+		try {
+			
+			if(sedes.containsKey(nombre)){	
+				throw new RuntimeException("Error: la sede ya está registrada en el sistema.");
+			} else {
+				sedes.put(nombre, new Estadio(direccion, capacidadMaxima));
+			}
+		} catch(RuntimeException ex) {
+			throw new RuntimeException(ex);
 		}
-		
+
 	}
 
 	@Override
@@ -79,50 +87,45 @@ public class Ticketek implements ITicketek{
 
 	@Override
 	public void registrarEspectaculo(String nombre) {
-		
-		if(espectaculos.containsKey(nombre)){
-			throw new RuntimeException("Error: el espectaculo ya existe.");
-		} else {
-
-			try {
-				
-				espectaculos.put(nombre, new Espectaculo(nombre));
-			
-			} catch (Exception ex) {
-				throw new RuntimeException(ex.getMessage());
-			}
-
-
-		}
-		
-	}
-
-	@Override
-	public void agregarFuncion(String nombreEspectaculo, String fechaFuncion, String nombreSede, double precioBase) {
-		
-		if(!espectaculos.containsKey(nombreEspectaculo) || nombreEspectaculo.trim().isEmpty()){
-			throw new RuntimeException("Error: el espectaculo solicitado es inválido o no corresponde a un espectaculo registrado.");
-		}
-		if(!sedes.containsKey(nombreSede) || nombreSede.trim().isEmpty()){
-			throw new RuntimeException("Error: la sede solicitada es inválida o no corresponde a una sede registrada.");
-		}
 
 		try {
 			
-			if(Fecha.esAnteriorALaActual(fechaFuncion)){
-				throw new RuntimeException("Error: la fecha ingresada es incorrecta.");
+			if(espectaculos.containsKey(nombre)){
+				throw new RuntimeException("Error: el espectaculo ya existe.");
+			} else {
+				espectaculos.put(nombre, new Espectaculo(nombre));
 			}
-			//falta validar la fecha.
-			else {
-				
-				Espectaculo espectaculo = espectaculos.get(nombreEspectaculo);
-				Sede sede = sedes.get(nombreSede);
-	
-				espectaculo.agregarFuncion(fechaFuncion, sede, precioBase, nombreSede);
 			
+			} catch (RuntimeException ex) {
+				throw new RuntimeException("Error al registrar un espectaculo");
+		}		
+	}
+
+
+	@Override
+	public void agregarFuncion(String nombreEspectaculo, String fechaFuncion, String nombreSede, double precioBase) {
+
+		try {
+				
+			if(!espectaculos.containsKey(nombreEspectaculo)){
+				throw new RuntimeException("Error: el espectaculo no corresponde a un espectaculo registrado.");
+			}
+			if(nombreEspectaculo.trim().isEmpty()) {
+				throw new RuntimeException("Error: el nombre del espectáculo es inválido.");	
+			}
+			if(!sedes.containsKey(nombreSede)){
+				throw new RuntimeException("Error: la sede solicitada no corresponde a una sede registrada.");
+			}
+			if(nombreSede.trim().isEmpty()) {
+				throw new RuntimeException("Error: la sede solicitada es inválida.");
 			}
 
-		} catch (Exception ex) {
+			Espectaculo espectaculo = espectaculos.get(nombreEspectaculo);
+			Sede sede = sedes.get(nombreSede);
+	
+			espectaculo.agregarFuncion(fechaFuncion, sede, precioBase, nombreSede);
+			
+		} catch (RuntimeException ex) {
 			throw new RuntimeException("Error al agregar una función.", ex);	
 		}
 		
@@ -228,7 +231,7 @@ public class Ticketek implements ITicketek{
 			} else {
 				throw new RuntimeException("Error: el usuario que solicita la entrada no está registrado o ingresó datos incorrectos.");
 			}
-		} catch (Exception ex) {
+		} catch (RuntimeException ex) {
 			throw new RuntimeException("Error en el procesamiento de la venta de entradas.", ex);
 		}
 	}

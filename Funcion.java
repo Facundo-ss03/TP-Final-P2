@@ -10,12 +10,16 @@ public class Funcion {
         this.nombreSede = nombreSede;
         this.precioBase = precio;
         this.asientosVendidos = new HashMap<String, HashSet<Integer>>();
-        if(sede.getClass() != Estadio.class){
 
-            asientosVendidos.put("Platea VIP", new HashSet<>());
-            asientosVendidos.put("Platea Común", new HashSet<>());
-            asientosVendidos.put("Platea Baja", new HashSet<>());
-            asientosVendidos.put("Platea Alta", new HashSet<>());
+        if(sede instanceof SedesConPlateas){
+
+            SedesConPlateas cast = (SedesConPlateas) sede;
+
+            for (String sector : cast.listarSectores()) {
+                
+                asientosVendidos.put(sector, new HashSet<>());
+
+            }
 
         } else {
 
@@ -51,49 +55,37 @@ public class Funcion {
                                 String fechaDeFuncion, String sector, int asiento) {
 
         Entrada entrada;
-        
-        if(consultarDisponibilidadDeAsiento(asiento) == false){
+        try {
             
-            if(sede.getClass() == Teatro.class){
-        
-                Teatro sedeSeleccionada = (Teatro) sede;
-            
-                int fila = sedeSeleccionada.buscarFila(sector, asiento);
-                Fecha fecha = new Fecha(fechaDeFuncion);
-
-                StringBuilder sb = new StringBuilder();
-                sb.append(sector + " " + "f: " + fila + "a: " + asiento);
+            if(consultarDisponibilidadDeAsiento(asiento) == false){
                 
-                double precioFinal = sedeSeleccionada.calcularCostoConAdicional(sector, precioBase);
+                if(sede instanceof SedesConPlateas){
+            
+                    SedesConPlateas sedeSeleccionada = (SedesConPlateas) sede;
+                
+                    int fila = sedeSeleccionada.buscarFila(sector, asiento);
+                    Fecha fecha = new Fecha(fechaDeFuncion);
 
-                entrada = new Entrada(emailUsuario, nombreDeEspectaculo, nombreSede, sector, asiento, fila, fecha, precioFinal);
-                asientosVendidos.get(sector).add(asiento);
+                    StringBuilder sb = new StringBuilder();
+                    sb.append(sector + " " + "f: " + fila + "a: " + asiento);
+                    
+                    double precioFinal = sedeSeleccionada.calcularCostoConAdicional(sector, precioBase);
 
-                return entrada;
+                    entrada = new Entrada(emailUsuario, nombreDeEspectaculo, nombreSede, sector, asiento, fila, fecha, precioFinal);
+                    asientosVendidos.get(sector).add(asiento);
+
+                    return entrada;
+                }
+                else{
+                    throw new RuntimeException("Error: La sede ingresada no es un Teatro ni Miniteatro.");
+                }
+
+            } else {
+                throw new RuntimeException("El asiento solicitado no está disponible.");
             }
-            else if(sede.getClass() == MiniTeatro.class){
-
-                MiniTeatro sedeSeleccionada = (MiniTeatro) sede;
-
-                int fila = sedeSeleccionada.buscarFila(sector, asiento);
-                Fecha fecha = new Fecha(fechaDeFuncion);
-
-                StringBuilder sb = new StringBuilder();
-                sb.append(sector + " " + "f: " + fila + " a: " + asiento);
-        
-                double precioFinal = sedeSeleccionada.calcularCostoConAdicional(sector, precioBase);
-
-                entrada = new Entrada(emailUsuario, nombreDeEspectaculo, nombreSede, sector, asiento, fila, fecha, precioFinal);
-                asientosVendidos.get(sector).add(asiento);
-        
-                return entrada;
-            } 
-            else{
-                throw new RuntimeException("Error: La sede ingresada no es un Teatro ni Miniteatro.");
-            }
-
-        } else {
-            throw new RuntimeException("El asiento solicitado no está disponible.");
+            
+        } catch (Exception ex) {
+            throw new RuntimeException("Error al crear la entrada.", ex);
         }
     }
 
