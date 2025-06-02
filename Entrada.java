@@ -93,12 +93,18 @@ public class Entrada implements IEntrada{
 
         StringBuilder sb = new StringBuilder();
 
-        sb.append(" - " + codigoEntrada);
+        sb.append(codigoEntrada);
         sb.append(" - " + espectaculo);
         sb.append(" - " + fecha.toString());
         sb.append(" - " + sede);
-        sb.append(" - " + ubicacion + " - ");
+        sb.append(" - " + ubicacion);
 
+        if(Fecha.esAnteriorALaActual(fecha)){
+            sb.append("P - ");
+        } else {
+            sb.append(" - ");
+        }
+        
         return sb.toString();
     }
 

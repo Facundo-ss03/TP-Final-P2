@@ -4,16 +4,15 @@ import java.util.HashSet;
 
 public class Funcion {
     
-    public Funcion(Sede sede, double precio, String nombreSede){
+    public Funcion(Sede sede, double precio){
         
         this.sede = sede;
-        this.nombreSede = nombreSede;
         this.precioBase = precio;
-        this.asientosVendidos = new HashMap<String, HashSet<Integer>>();
 
         if(sede instanceof SedesConPlateas){
 
             SedesConPlateas cast = (SedesConPlateas) sede;
+            this.asientosVendidos = new HashMap<String, HashSet<Integer>>();
 
             for (String sector : cast.listarSectores()) {
                 
@@ -29,7 +28,6 @@ public class Funcion {
     }
 
     private Sede sede;
-    private String nombreSede;
     private double precioBase;
     private HashMap<String, HashSet<Integer>> asientosVendidos;  //<codigoEntrada, nroAsiento>  //anularEntrada() debe eliminar de este mapa los asientos de las entradas anuladas
     private int asientosVendidosEstadio;
@@ -40,7 +38,7 @@ public class Funcion {
 
             Fecha fecha = new Fecha(fechaDeFuncion);
             
-            Entrada entrada = new Entrada(emailUsuario, nombreDeEspectaculo, nombreSede, fecha, precioBase);
+            Entrada entrada = new Entrada(emailUsuario, nombreDeEspectaculo, sede.getNombre(), fecha, precioBase);
             asientosVendidosEstadio++;
     
             return entrada;
@@ -71,7 +69,7 @@ public class Funcion {
                     
                     double precioFinal = sedeSeleccionada.calcularCostoConAdicional(sector, precioBase);
 
-                    entrada = new Entrada(emailUsuario, nombreDeEspectaculo, nombreSede, sector, asiento, fila, fecha, precioFinal);
+                    entrada = new Entrada(emailUsuario, nombreDeEspectaculo, sede.getNombre(), sector, asiento, fila, fecha, precioFinal);
                     asientosVendidos.get(sector).add(asiento);
 
                     return entrada;
@@ -134,6 +132,10 @@ public class Funcion {
 
     }
 
+    public String getNombreSede(){
+        return sede.getNombre();
+    }
+
     @Override
     public String toString() {
         
@@ -141,23 +143,28 @@ public class Funcion {
 
         if(asientosVendidos == null){
 
-                sb.append("Entradas Vendidas: " + asientosVendidosEstadio);
+            sb.append(sede.getNombre() + " - ");
+            sb.append(asientosVendidosEstadio + "/" + sede.getCapacidadMaxima());
+            sb.append("\n");
     
         } else {
 
-            sb.append("Entradas Vendidas: ");
+            SedesConPlateas miSede = (SedesConPlateas) sede;
+            sb.append(sede.getNombre() + " - ");
+            for (String sector : miSede.listarSectores()) {
 
-            for (String sector : asientosVendidos.keySet()) {
-                
                 sb.append(sector + ": ");
                 sb.append(asientosVendidos.get(sector).size());
+                sb.append("/" + miSede.getCapacidadMaximaDeSector(sector));
+                sb.append(" | ");
+                
+            }
 
+            if(sb.length() > 3){
+                sb.setLength(sb.length()-3);
             }
 
         }
-
-
-        sb.append("Precio Base: " + precioBase);
 
         return sb.toString();
 

@@ -1,7 +1,7 @@
 
 public abstract class Sede{
 
-	public Sede(String direccion, int CAPACIDAD_MAXIMA){
+	public Sede(String nombreSede, String direccion, int CAPACIDAD_MAXIMA){
 		
 		boolean direccionValida = direccion.trim().isEmpty();
 		boolean capacidadValida = CAPACIDAD_MAXIMA > 0;
@@ -9,15 +9,21 @@ public abstract class Sede{
 		
 		if(datosValidos){
 
+			this.nombre = nombreSede;
 			this.direccion = direccion;
 			this.capacidadMaxima = CAPACIDAD_MAXIMA;
 		
 		}
 	}
 	
+    private String nombre;
 	private String direccion;
 	private int capacidadMaxima;
 	
+	public String getNombre(){
+		return nombre;
+	}
+
 	public String getDireccion(){
 		return direccion;
 	}

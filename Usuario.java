@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 
 public class Usuario {
@@ -55,11 +56,24 @@ public class Usuario {
 
         ArrayList<IEntrada> lista = new ArrayList<IEntrada>();
 
+        Iterator iterador = entradas.values().iterator();
+        
+        while (iterador.hasNext()) {
+            Entrada elem = (Entrada) iterador.next();
+            
+            if (Fecha.esPosteriorALaActual(elem.getFecha())) {
+                lista.add(elem);
+            }
+        }
+
+
+        /*
         for (Entrada elem : entradas.values()) {
             
             if(Fecha.esPosteriorALaActual(elem.getFecha())) lista.add(elem);
             
         }
+        */
 
         return lista;
                 

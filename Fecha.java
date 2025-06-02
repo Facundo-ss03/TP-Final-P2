@@ -62,31 +62,11 @@ public class Fecha{
 
     }
 
-    public static boolean esAnteriorALaActual(String fecha){
-
-        LocalDate actual = LocalDate.now();
-        LocalDate fechaParseada = LocalDate.parse(fecha, formato);
-
-        if(actual.isAfter(fechaParseada)) return true;
-            else return false;
-
-    }
-
     public static boolean esPosteriorALaActual(Fecha fecha){
 
         LocalDate actual = LocalDate.now();
 
         if(actual.isBefore(fecha.fechaParseada)) return true;
-            else return false;
-
-    }
-
-    public static boolean esPosteriorALaActual(String fecha){
-
-        LocalDate actual = LocalDate.now();
-        LocalDate fechaParseada = LocalDate.parse(fecha, formato);
-
-        if(actual.isBefore(fechaParseada)) return true;
             else return false;
 
     }

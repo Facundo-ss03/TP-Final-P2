@@ -1,28 +1,50 @@
 
 import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
+import java.util.Map;
 
 public class Espectaculo {
 
     public Espectaculo(String nombreEspectaculo){
 
+        if(nombreEspectaculo.trim().isEmpty()){
+            throw new RuntimeException("Error: el nombre ingresado está vacío.");
+        }
+
         this.nombre = nombreEspectaculo;
+
+
         this.funciones = new HashMap<String, Funcion>();
-        
+        this.recaudacionesDeSedes = new HashMap<String, Double>();
     }
 
     private String nombre;
     private HashMap<String, Funcion> funciones;
+    private HashMap<String, Double> recaudacionesDeSedes;
 
+	private void agregarEntradaARecaudacion(String sede, double precio){
+
+		recaudacionesDeSedes.put(sede, recaudacionesDeSedes.get(sede) + precio); 
+
+
+	}
+
+	private void descontarEntradaDeRecaudacion(String sede, double precio){
+
+		recaudacionesDeSedes.put(sede, recaudacionesDeSedes.get(sede) - precio); 
+
+	}
     //Procesa la venta de una entrada para una sede de tipo estadio.
     public Entrada procesarVenta(String email, String nombreEspectaculo, String fecha){
 
         if(funciones.containsKey(fecha)){
 
             Funcion funcion = funciones.get(fecha);
-            Entrada entrada = funcion.crearEntrada(email, nombreEspectaculo, fecha);
+            Entrada nuevaEntrada = funcion.crearEntrada(email, nombreEspectaculo, fecha);
 
-            return entrada;
+			agregarEntradaARecaudacion(funcion.getNombreSede(), nuevaEntrada.precio());
+            
+            return nuevaEntrada;
 
         } else {
             throw new RuntimeException("Error: la fecha ingresada no corresponde a ninguna función registrada.");
@@ -35,9 +57,11 @@ public class Espectaculo {
         if(funciones.containsKey(fecha)){
 
             Funcion funcion = funciones.get(fecha);
-            Entrada entrada = funcion.crearEntrada(email, nombreEspectaculo, fecha, sector, asiento);
-
-            return entrada;
+            Entrada nuevaEntrada = funcion.crearEntrada(email, nombreEspectaculo, fecha, sector, asiento);
+            
+			agregarEntradaARecaudacion(funcion.getNombreSede(), nuevaEntrada.precio());
+            
+            return nuevaEntrada;
 
         } else {
             throw new RuntimeException("Error: la fecha ingresada no corresponde a ninguna función registrada.");
@@ -46,14 +70,12 @@ public class Espectaculo {
 
     public void eliminarEntrada(Entrada entrada){
 
-        String fecha;
-        Fecha fechaEntrada = entrada.getFecha();
-        DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/yy");
-        fecha = fechaEntrada.getFecha().format(formato);
-        Funcion funcion = funciones.get(fecha);
+        Funcion funcion = funciones.get(entrada.getFecha().toString());
+
+		descontarEntradaDeRecaudacion(funcion.getNombreSede(), entrada.precio());
 
         if(entrada.getSector() == "CAMPO"){
-            funcion.quitarEntrada();
+            funcion.quitarEntrada();        
         } else {
             funcion.quitarEntrada(entrada.getSector(), entrada.getNumeroDeAsiento());
         }
@@ -67,9 +89,14 @@ public class Espectaculo {
         }
 
         StringBuilder sb = new StringBuilder();
-        for (Funcion elem : funciones.values()) {
+
+        for (Map.Entry<String, Funcion> funcion : funciones.entrySet()) {
             
-            sb.append(elem.toString() + "\n\n");
+            sb.append(" - ");
+            sb.append("(" + funcion.getKey() + ") ");
+            sb.append(funcion.getValue().toString());
+            sb.append("\n");
+
 
         }
 
@@ -77,16 +104,21 @@ public class Espectaculo {
 
     }
 
-    public void agregarFuncion(String fecha, Sede sede, double precioBase, String nombreSede){
+    public void agregarFuncion(String fecha, Sede sede, double precioBase){
 
         if(funciones.containsKey(fecha)){
-        	throw new RuntimeException("La fecha ya está ocupada por otra función.");
+        	throw new RuntimeException("Error: la fecha ya está ocupada por otra función.");
         } else {
         	
-        	funciones.put(fecha, new Funcion(sede, precioBase, nombreSede));
+        	funciones.put(fecha, new Funcion(sede, precioBase));
+            
+            if(!recaudacionesDeSedes.containsKey(sede.getNombre())){
 
+                recaudacionesDeSedes.put(sede.getNombre(), 0.0);
+
+            }
         }
-
+     
     }
 
     public double obtenerCosto(String fecha){
@@ -122,6 +154,18 @@ public class Espectaculo {
         } catch (Exception ex) {
             throw new RuntimeException(ex);
         }
+    }
+
+    public double obtenerRecaudacionDeSede(String nombreSede){
+
+        if(recaudacionesDeSedes.containsKey(nombreSede)){
+
+            return recaudacionesDeSedes.get(nombreSede);
+
+        } else {
+            throw new RuntimeException("Error: el nombre ingresado no corresponde a ninguna sede del espectaculo solicitado.");
+        }
+
     }
 
     @Override

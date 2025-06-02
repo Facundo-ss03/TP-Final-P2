@@ -1,9 +1,9 @@
 
 public class Estadio extends Sede{
 
-    Estadio(String direccion, int capMaxima) {
+    Estadio(String nombreSede, String direccion, int capMaxima) {
         
-        super(direccion, capMaxima);
+        super(nombreSede, direccion, capMaxima);
 
         this.sector = "CAMPO";
 

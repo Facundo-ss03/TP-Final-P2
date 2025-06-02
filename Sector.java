@@ -12,6 +12,10 @@ public class Sector {
     private int CAPACIDAD_MAXIMA;
     private int ASIENTOS_X_FILA;
 
+    public int getCapacidadMaxima(){
+        return CAPACIDAD_MAXIMA;
+    }
+
     //Calcula el costo final de la entrada según el sector.
     public double calcularCosto(double PRECIO_BASE){
 

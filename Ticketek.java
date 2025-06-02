@@ -18,7 +18,6 @@ public class Ticketek implements ITicketek{
 	private HashMap<String, Usuario> usuarios;
 	private HashMap<String, Espectaculo> espectaculos;
 	private HashMap<String, Sede> sedes;
-
 	private HashMap<String, Double> recaudacionDeEspectaculos;
 
 	@Override
@@ -29,7 +28,7 @@ public class Ticketek implements ITicketek{
 			if(sedes.containsKey(nombre)){	
 				throw new RuntimeException("Error: la sede ya está registrada en el sistema.");
 			} else {
-				sedes.put(nombre, new Estadio(direccion, capacidadMaxima));
+				sedes.put(nombre, new Estadio(nombre, direccion, capacidadMaxima));
 			}
 		} catch(RuntimeException ex) {
 			throw new RuntimeException(ex);
@@ -43,9 +42,9 @@ public class Ticketek implements ITicketek{
 				
 		if(!sedes.containsKey(nombre) && !nombre.trim().isEmpty()){
 
-			sedes.put(nombre, new Teatro(direccion, capacidadMaxima, asientosPorFila, 
+			sedes.put(nombre, new Teatro(nombre, direccion, capacidadMaxima, asientosPorFila, 
 											sectores, capacidad, porcentajeAdicional));
-			
+
 		}
 
 	}
@@ -57,7 +56,7 @@ public class Ticketek implements ITicketek{
 				
 		if(!sedes.containsKey(nombre) && !nombre.trim().isEmpty()){
 
-			sedes.put(nombre, new MiniTeatro(direccion, capacidadMaxima, asientosPorFila, cantidadPuestos,
+			sedes.put(nombre, new MiniTeatro(nombre, direccion, capacidadMaxima, asientosPorFila, cantidadPuestos,
 											precioConsumicion, sectores, capacidad, porcentajeAdicional));
 			
 		} else {
@@ -89,11 +88,11 @@ public class Ticketek implements ITicketek{
 	public void registrarEspectaculo(String nombre) {
 
 		try {
-			
 			if(espectaculos.containsKey(nombre)){
 				throw new RuntimeException("Error: el espectaculo ya existe.");
 			} else {
 				espectaculos.put(nombre, new Espectaculo(nombre));
+				recaudacionDeEspectaculos.put(nombre, 0.0);				
 			}
 			
 			} catch (RuntimeException ex) {
@@ -123,7 +122,7 @@ public class Ticketek implements ITicketek{
 			Espectaculo espectaculo = espectaculos.get(nombreEspectaculo);
 			Sede sede = sedes.get(nombreSede);
 	
-			espectaculo.agregarFuncion(fechaFuncion, sede, precioBase, nombreSede);
+			espectaculo.agregarFuncion(fechaFuncion, sede, precioBase);
 			
 		} catch (RuntimeException ex) {
 			throw new RuntimeException("Error al agregar una función.", ex);	
@@ -148,6 +147,8 @@ public class Ticketek implements ITicketek{
 					for (int i = 0; i < cantidadEntradas; i++) {
 						
 						Entrada nuevaEntrada = espectaculo.procesarVenta(email, nombreEspectaculo, fecha);
+						
+						agregarEntradaARecaudacion(nombreEspectaculo, nuevaEntrada.precio());
 						
 						entradas.add(nuevaEntrada);
 						comprador.agregarEntrada(nuevaEntrada);
@@ -219,6 +220,9 @@ public class Ticketek implements ITicketek{
 					for (int i = 0; i < asientos.length; i++) {
 						
 						Entrada nuevaEntrada = espectaculo.procesarVenta(email, nombreEspectaculo, fecha, sector, asientos[i]);
+						
+						agregarEntradaARecaudacion(nombreEspectaculo, nuevaEntrada.precio());
+
 						entradas.add(nuevaEntrada);
 						comprador.agregarEntrada(nuevaEntrada);
 					}
@@ -310,44 +314,65 @@ public class Ticketek implements ITicketek{
 	@Override
 	public boolean anularEntrada(IEntrada entrada, String contrasenia) {
 		
-		if(entrada instanceof Entrada){
+		Entrada entradaAntigua = (Entrada) entrada;
+		Usuario user = usuarios.get(entradaAntigua.getEmail());
+			
+		if(user.validarContraseña(contrasenia)){
 
-			Entrada entry = (Entrada) entrada;
-			Usuario user = usuarios.get(entry.getEmail());
-			if(user.validarContraseña(contrasenia)){
+			user.eliminarEntrada(entradaAntigua.getCodigoDeEntrada());
 
-				user.eliminarEntrada(entry.getCodigoDeEntrada());
-
-				Espectaculo espectaculo = espectaculos.get(entry.getEspectaculo());
-				espectaculo.eliminarEntrada(entry);
+			Espectaculo espectaculo = espectaculos.get(entradaAntigua.getEspectaculo());
+			espectaculo.eliminarEntrada(entradaAntigua);
 				
-				return true;
-			}
-
+			//descuento la entrada eliminada de la recaudación.
+			descontarEntradaDeRecaudacion(entradaAntigua.getEspectaculo(), entradaAntigua.precio());
+			
+			return true;
+		} else {
+			throw new RuntimeException("Error: la contraseña o el email son inválidos.");
 		}
+	}
 
-		return false;
+	private void descontarEntradaDeRecaudacion(String espectaculo, double precio){
+
+		recaudacionDeEspectaculos.put(espectaculo, recaudacionDeEspectaculos.get(espectaculo) - precio); 
+
+	}
+
+	private void agregarEntradaARecaudacion(String espectaculo, double precio){
+
+		recaudacionDeEspectaculos.put(espectaculo, recaudacionDeEspectaculos.get(espectaculo) + precio); 
+
 	}
 
 	@Override
 	public IEntrada cambiarEntrada(IEntrada entrada, String contrasenia, String fecha, String sector, int asiento) {
-	
-		Entrada entry = (Entrada) entrada;
+
+		Entrada entradaAntigua = (Entrada) entrada;
 		int[] nuevoAsiento = {asiento};
 
 		try {
 			
-			if(usuarioValido(entry.getEmail(), contrasenia)){
+			if(usuarioValido(entradaAntigua.getEmail(), contrasenia)){
 	
-				usuarios.get(entry.getEmail()).eliminarEntrada(entry.getCodigoDeEntrada());	//le quito la entrada al usuario
-				entrada = venderEntrada(entry.getEspectaculo(), entry.getFecha().toString(), entry.getEmail(), contrasenia, sector, nuevoAsiento).get(0);
-				Espectaculo espectaculo = espectaculos.get(entry.getEspectaculo());
-				espectaculo.eliminarEntrada(entry);
+				usuarios.get(entradaAntigua.getEmail()).eliminarEntrada(entradaAntigua.getCodigoDeEntrada());	//le quito la entrada al usuario
 
-				
+				entrada = venderEntrada(entradaAntigua.getEspectaculo(), entradaAntigua.getFecha().toString(), 
+						entradaAntigua.getEmail(), contrasenia, sector, nuevoAsiento).get(0);
+
+				Espectaculo espectaculo = espectaculos.get(entradaAntigua.getEspectaculo());
+				espectaculo.eliminarEntrada(entradaAntigua);
+
+				//descuento el valor de la nueva entrada de la recaudación, porque no se
+				//vendió una entrada nueva, solo se reemplazó
+				descontarEntradaDeRecaudacion(entradaAntigua.getEspectaculo(), entradaAntigua.precio());
+
+				return entrada;
+
+			} else {
+				throw new RuntimeException("Error: la contraseña ingresada es inválida.");
 			}
-	
-			return entrada;
+
 
 		} catch (Exception ex) {
 			throw new RuntimeException("Error al cambiar la entrada.", ex);
@@ -359,17 +384,25 @@ public class Ticketek implements ITicketek{
 
 		try {
 			
-			Entrada entry = (Entrada) entrada;
+			Entrada entradaAntigua = (Entrada) entrada;
 
-			if(usuarioValido(entry.getEmail(), contrasenia)){
-	
-				usuarios.get(entry.getEmail()).eliminarEntrada(entry.getCodigoDeEntrada());	//le quito la entrada al usuario
-				entrada = venderEntrada(entry.getEspectaculo(), fecha, entry.getEmail(), contrasenia, 1).get(0);	//y le asigno una nueva
-				Espectaculo espectaculo = espectaculos.get(entry.getEspectaculo());
-				espectaculo.eliminarEntrada(entry);
+			if(usuarioValido(entradaAntigua.getEmail(), contrasenia)){
+				
+				usuarios.get(entradaAntigua.getEmail()).eliminarEntrada(entradaAntigua.getCodigoDeEntrada());	//le quito la entrada al usuario
+				entrada = venderEntrada(entradaAntigua.getEspectaculo(), fecha, entradaAntigua.getEmail(), contrasenia, 1).get(0);	//y le asigno una nueva
+				Espectaculo espectaculo = espectaculos.get(entradaAntigua.getEspectaculo());
+				espectaculo.eliminarEntrada(entradaAntigua);
+
+				//descuento el valor de la nueva entrada de la recaudación, porque no se
+				//vendió una entrada nueva, solo se reemplazó
+				descontarEntradaDeRecaudacion(entradaAntigua.getEspectaculo(), entradaAntigua.precio());
+
+				return entrada;
+
+			} else {
+				throw new RuntimeException("Error: la contraseña ingresada es inválida.");
 			}
 	
-			return entrada;
 
 		} catch (Exception ex) {
 			throw new RuntimeException("Error al cambiar la entrada.", ex);
@@ -416,14 +449,39 @@ public class Ticketek implements ITicketek{
 
 	@Override
 	public double totalRecaudado(String nombreEspectaculo) {
-		// TODO Auto-generated method stub
-		return 0;
+		
+		try {
+
+			if(recaudacionDeEspectaculos.containsKey(nombreEspectaculo)){
+	
+				return recaudacionDeEspectaculos.get(nombreEspectaculo);
+	
+			} else {
+				throw new RuntimeException("Error: el nombre ingresado no corresponde a ningún espectaculo registrado");
+			}
+			
+		} catch (Exception ex) {
+			throw new RuntimeException("Error al obtener la recaudación de un espectaculo.", ex);
+		}
 	}
 
 	@Override
 	public double totalRecaudadoPorSede(String nombreEspectaculo, String nombreSede) {
-		// TODO Auto-generated method stub
-		return 0;
+		
+		try {
+
+			if(espectaculos.containsKey(nombreEspectaculo)){
+	
+				return espectaculos.get(nombreEspectaculo).obtenerRecaudacionDeSede(nombreSede);
+
+			} else {
+				throw new RuntimeException("Error: el espectaculo solicitado no existe en el sistema.");
+			}
+
+		} catch (Exception ex) {
+				throw new RuntimeException("Error al obtener la recaudación de una sede.", ex);
+		}
+
 	}
 	
 	@Override
@@ -433,9 +491,10 @@ public class Ticketek implements ITicketek{
 		
 		sb.append("\n====================Usuarios====================\n");
 		
-		for (Usuario elem : usuarios.values()) {
-			
-			sb.append(elem.toString());
+		for (Map.Entry<String, Usuario> usuario : usuarios.entrySet()) {
+			sb.append("Email: " + usuario.getKey());
+			sb.append(usuario.getValue().toString());
+			sb.append("\n");
 
 		}
 		
@@ -443,7 +502,8 @@ public class Ticketek implements ITicketek{
 		
 		for (Map.Entry<String, Sede> entry : sedes.entrySet()) {
 			
-			sb.append(entry.toString());
+			sb.append("Nombre: " + entry.getKey());
+			sb.append(entry.getValue().toString());
 			sb.append("\n");
 		}
 

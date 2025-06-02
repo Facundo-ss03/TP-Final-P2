@@ -1,20 +1,21 @@
 
 import java.util.HashMap;
-import java.util.Set;
 
 public abstract class SedesConPlateas extends Sede {
 
-    SedesConPlateas(String direccion, int CAPACIDAD_MAXIMA, String[] listaDeSectores, 
+    SedesConPlateas(String nombreSede, String direccion, int CAPACIDAD_MAXIMA, String[] listaDeSectores, 
                     int[] capacidadPorSector, int ASIENTOS_X_FILA, int[] porcentajesAdicionales) {
 
-        super(direccion, CAPACIDAD_MAXIMA);
+        super(nombreSede, direccion, CAPACIDAD_MAXIMA);
 
         sectores = new  HashMap<String, Sector>();
-
+        
+        this.listaSectores = listaDeSectores;
         configurarSectores(listaDeSectores, capacidadPorSector, ASIENTOS_X_FILA, porcentajesAdicionales);
     }
 
-    protected HashMap<String, Sector> sectores;
+    private HashMap<String, Sector> sectores;
+    private String[] listaSectores;
 
     public double calcularCostoConAdicional(String sector, double precioBase){
 
@@ -57,9 +58,19 @@ public abstract class SedesConPlateas extends Sede {
         }
     }
     
-    public Set<String> listarSectores(){
+    public String[] listarSectores(){
 
-        return sectores.keySet();
+        return listaSectores;
+
+    }
+
+    public int getCapacidadMaximaDeSector(String sector){
+        
+        if(sectores.containsKey(sector)) {
+            return sectores.get(sector).getCapacidadMaxima();
+        } else {
+            throw new RuntimeException("Error: el sector solicitado no existe.");
+        }
 
     }
 

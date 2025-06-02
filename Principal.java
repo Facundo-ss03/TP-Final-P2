@@ -150,6 +150,8 @@ public class Principal {
         	System.out.println(" - " + e);
         
 		printEmpresa(ticketek, "Fin de la simulación");
+
+        System.out.println(ticketek.totalRecaudado("El Rey León"));
 	}
 
 	private static void printEmpresa(ITicketek ticketek, String msg) {
