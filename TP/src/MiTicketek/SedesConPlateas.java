@@ -1,8 +1,8 @@
 
 package MiTicketek;
-
 import java.util.HashMap;
-import java.util.Set;
+
+import javax.management.RuntimeErrorException;
 
 public abstract class SedesConPlateas extends Sede {
 
@@ -36,7 +36,30 @@ public abstract class SedesConPlateas extends Sede {
     private HashMap<String, Sector> sectores;
     private String[] listaSectores;
 
-    public double calcularCostoConAdicional(String sector, double precioBase){
+    @Override
+    public double calcularCostoFinal(String sector, double precioBase) {
+        
+        return calcularCostoConAdicional(sector, precioBase);
+
+    }
+
+    @Override
+    public String getUbicacionDeAsiento() {
+        throw new RuntimeException("Error: el usuario debe elegir un sector y un asiento.");
+    }
+
+    @Override
+    public String getUbicacionDeAsiento(String Sector, int asiento) {
+        
+        StringBuilder sb = new StringBuilder();
+
+        sb.append("f: " + buscarFila(Sector, asiento) + " ");
+        sb.append("a: " + asiento);
+
+        return sb.toString();
+    }
+
+    private double calcularCostoConAdicional(String sector, double precioBase){
 
     	if(sector.trim().isEmpty()) {
     		throw new RuntimeException("Error: el nombre del sector está vacío.");
@@ -77,13 +100,15 @@ public abstract class SedesConPlateas extends Sede {
         }
     }
 
+    @Override
     public String[] listarSectores(){
 
         return listaSectores;
 
     }
 
-    public int getCapacidadMaximaDeSector(String sector){
+    @Override
+    public int getCapacidadMaxima(String sector){
         
         if(sectores.containsKey(sector)) {
             return sectores.get(sector).getCapacidadMaxima();
@@ -110,4 +135,5 @@ public abstract class SedesConPlateas extends Sede {
 
         return sb.toString();
     }
+
 }

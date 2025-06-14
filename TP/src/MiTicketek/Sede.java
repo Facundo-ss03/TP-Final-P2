@@ -1,5 +1,7 @@
-
 package MiTicketek;
+
+import java.util.List;
+import java.util.Objects;
 
 public abstract class Sede{
 
@@ -25,15 +27,31 @@ public abstract class Sede{
 	private String direccion;
 	private int capacidadMaxima;
 	
-	public String getNombre(){
-		return nombre;
+	public abstract double calcularCostoFinal(String sector, double precioBase);
+
+	public abstract String[] listarSectores();
+
+	public String getUbicacionDeAsiento(){
+		return "";
+	}
+	
+	public String getUbicacionDeAsiento(String Sector, int asiento){
+		return "";
 	}
 
 	public String getDireccion(){
 		return direccion;
 	}
 
+	public String getNombre(){
+		return nombre;
+	}
+
 	public int getCapacidadMaxima(){
+		return capacidadMaxima;
+	}
+
+	public int getCapacidadMaxima(String sector){
 		return capacidadMaxima;
 	}
 
@@ -58,13 +76,13 @@ public abstract class Sede{
 		}
 
 		Sede sede = (Sede) obj;
-		return direccion.equals(sede.direccion);
+		return capacidadMaxima == sede.capacidadMaxima && Objects.equals(direccion, sede.direccion);
 
 	}
 
 	@Override
 	public int hashCode() {
-		return direccion.hashCode();
+		return Objects.hash(nombre, direccion, capacidadMaxima);
 	}
 
 }

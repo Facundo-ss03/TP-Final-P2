@@ -1,8 +1,8 @@
-
 package MiTicketek;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 public class Espectaculo {
 
@@ -116,7 +116,7 @@ public class Espectaculo {
         if(funciones.containsKey(fecha)){
 
             Funcion funcion = funciones.get(fecha);
-            Entrada nuevaEntrada = funcion.crearEntrada(email, nombreEspectaculo, fecha, sector, asiento);
+            Entrada nuevaEntrada = funcion.crearEntrada(email, nombreEspectaculo, sector, asiento);
             
 			agregarEntradaARecaudacion(funcion.getNombreSede(), nuevaEntrada.precio());
             
@@ -176,7 +176,7 @@ public class Espectaculo {
         	throw new RuntimeException("Error: la fecha ya está ocupada por otra función.");
         } else {
         	
-        	funciones.put(fecha, new Funcion(sede, precioBase));
+        	funciones.put(fecha, new Funcion(sede, precioBase, fecha));
 
             if(!recaudacionesDeSedes.containsKey(sede.getNombre())){
 
@@ -196,7 +196,7 @@ public class Espectaculo {
     	
         if(funciones.containsKey(fecha)){
     
-        	return funciones.get(fecha).calcularCostoFinal();
+        	return funciones.get(fecha).calcularCostoEntrada();
     
         } else {
                 throw new RuntimeException("Error: la fecha ingresada no corresponde a ninguna función registrada.");
@@ -214,7 +214,7 @@ public class Espectaculo {
         }
     	if(funciones.containsKey(fecha)){
     
-    		return funciones.get(fecha).calcularCostoFinal(sector);
+    		return funciones.get(fecha).calcularCostoEntrada(sector);
     
     	} else {
     		throw new RuntimeException("Error: la fecha ingresada no corresponde a ninguna función registrada.");
@@ -227,10 +227,28 @@ public class Espectaculo {
         StringBuilder sb = new StringBuilder();
         sb.append("\nnombre: " + nombre);
         
-        sb.append("\n" + "Cantidad de funciones: " + funciones.size());
+        sb.append("\n\nfunciones: ");
+
+            sb.append("\n" + listarFunciones());
 
         return sb.toString();
 
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        
+        if(this == obj) return true;
+
+        if(obj == null || getClass() != obj.getClass()) return false;
+
+        Espectaculo espectaculo = (Espectaculo) obj;
+        return Objects.equals(nombre, espectaculo.nombre);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(nombre);
     }
 
 }

@@ -1,5 +1,5 @@
-
 package MiTicketek;
+import java.util.Objects;
 
 public class MiniTeatro extends SedesConPlateas{
 
@@ -23,10 +23,23 @@ public class MiniTeatro extends SedesConPlateas{
     private double consumicionLibre;
     
     @Override
-    public double calcularCostoConAdicional(String sector, double precioBase) {
+    public double calcularCostoFinal(String sector, double precioBase) {
         
-        return super.calcularCostoConAdicional(sector, precioBase) + consumicionLibre;
+        return super.calcularCostoFinal(sector, precioBase) + consumicionLibre;
 
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if(!super.equals(obj)) return false;
+
+        MiniTeatro miniTeatro = (MiniTeatro) obj; 
+        return puestos == miniTeatro.puestos;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(puestos, super.hashCode());
     }
 
 }

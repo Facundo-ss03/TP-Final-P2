@@ -1,6 +1,5 @@
 
 package MiTicketek;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -529,7 +528,7 @@ public class Ticketek implements ITicketek{
 
 		StringBuilder sb = new StringBuilder("Información del sistema:\n\n");
 		
-		sb.append("\n====================Usuarios====================\n");
+		sb.append("\n====================Usuarios====================\n\n");
 		
 		for (Map.Entry<String, Usuario> usuario : usuarios.entrySet()) {
 			sb.append("Email: " + usuario.getKey());

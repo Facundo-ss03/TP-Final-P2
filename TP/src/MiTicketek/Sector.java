@@ -1,5 +1,5 @@
-
 package MiTicketek;
+import java.util.Objects;
 
 public class Sector {
 
@@ -54,6 +54,20 @@ public class Sector {
             
         }
 
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if(this == obj) return true;
+        if(obj == null || getClass() != obj.getClass()) return false;
+
+        Sector sector = (Sector) obj;
+        return CAPACIDAD_MAXIMA == sector.CAPACIDAD_MAXIMA && ADICIONAL == sector.ADICIONAL;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(CAPACIDAD_MAXIMA, ADICIONAL);
     }
 
 }

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Objects;
 
 public class Usuario {
 
@@ -114,6 +115,21 @@ public class Usuario {
         	throw new RuntimeException("Error: el usuario no posee la entrada que se está intentando eliminar");
         }
 
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if(this == obj) return true;
+        if(obj == null || getClass() != obj.getClass()) return false;
+    
+        Usuario usuario = (Usuario) obj;
+        return Objects.deepEquals(nombre, usuario.nombre) && Objects.deepEquals(apellido, usuario.apellido) && Objects.deepEquals(contraseña, usuario.contraseña);
+    }
+
+    @Override
+    public int hashCode() {
+        
+        return Objects.hash(nombre, apellido, contraseña);
     }
 
     @Override

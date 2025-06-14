@@ -1,8 +1,9 @@
 
 package MiTicketek;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
+import java.util.Objects;
 
 public class Fecha{
 
@@ -80,6 +81,19 @@ public class Fecha{
         return fechaOriginal;
     }
 
+    @Override
+    public boolean equals(Object obj) {
+        if(this == obj) return true;
+        if(obj == null || getClass() != obj.getClass()) return false;
+
+        Fecha fecha = (Fecha) obj;
+        return fechaParseada.equals(fecha.fechaParseada);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(fechaParseada);
+    }
 
 
 }

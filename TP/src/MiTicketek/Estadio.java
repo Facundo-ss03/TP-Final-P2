@@ -1,5 +1,5 @@
-
 package MiTicketek;
+import java.util.Objects;
 
 public class Estadio extends Sede{
 
@@ -13,9 +13,21 @@ public class Estadio extends Sede{
 
     String sector;
 
-    public String getSector(){
+    @Override
+    public String getUbicacionDeAsiento(String Sector, int asiento) {
         return sector;
     }
+
+    @Override
+    public String getUbicacionDeAsiento() {
+        return sector;
+    }
+
+    @Override
+    public double calcularCostoFinal(String sector, double precioBase) {
+        return precioBase;
+    }
+
 
     @Override
     public String toString() {
@@ -25,5 +37,26 @@ public class Estadio extends Sede{
         sb.append("Sector: " + sector + "\n");
         
         return sb.toString();
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if(!super.equals(obj)) return false;
+
+        Estadio estadio = (Estadio) obj;
+        return sector.equals(estadio);
+    }
+
+    @Override
+    public int hashCode() {
+        
+        return Objects.hash(sector, super.hashCode());
+    }
+
+    @Override
+    public String[] listarSectores() {
+
+        String[] s = {sector};
+        return s;
     }
 }

@@ -1,5 +1,5 @@
-
 package MiTicketek;
+import java.util.Objects;
 
 public class Entrada implements IEntrada{
 
@@ -35,7 +35,7 @@ public class Entrada implements IEntrada{
         this.codigoEntrada = CODIGO_DE_ENTRADA + "";
     }
 
-    public Entrada(String emailUsuario, String nombreDeEspectaculo, String nombreSede, String sector, int numeroDeAsiento, int numeroDeFila, Fecha fechaDeFuncion, double precio){
+    public Entrada(String emailUsuario, String nombreDeEspectaculo, String nombreSede, String sector, String asiento, Fecha fechaDeFuncion, double precio){
 
     	if(emailUsuario.trim().isEmpty()) {
     		throw new RuntimeException("Error: el email está vacío.");
@@ -49,12 +49,6 @@ public class Entrada implements IEntrada{
     	if(sector.trim().isEmpty()) {
     		throw new RuntimeException("Error: el nombre del sector está vacío.");
     	}
-    	if(numeroDeAsiento <= 0) {
-    		throw new RuntimeException("Error: el asiento es negativo.");
-    	}
-    	if(numeroDeFila <= 0) {
-    		throw new RuntimeException("Error: la fila es negativa.");
-    	}
     	if(fechaDeFuncion == null) {
     		throw new RuntimeException("Error: la fecha de la función es nula.");
     	}
@@ -65,14 +59,13 @@ public class Entrada implements IEntrada{
         this.email = emailUsuario;
         this.espectaculo = nombreDeEspectaculo;
         this.sede = nombreSede;
-        this.asiento = numeroDeAsiento;
-        this.fila = numeroDeFila;
         this.sector = sector;
 
-        this.ubicacion = sector + " - " + "f: " + fila + " a: " + numeroDeAsiento;
+        this.ubicacion = sector + " - " + asiento;
 
         this.fecha = fechaDeFuncion;
         this.costoTotal = precio;
+        this.asiento = asiento;
 
         CODIGO_DE_ENTRADA += 1;
         this.codigoEntrada = CODIGO_DE_ENTRADA + "";
@@ -83,19 +76,18 @@ public class Entrada implements IEntrada{
     private String espectaculo;
     private String sede;
     private String sector;
-    private int asiento;
-    private int fila;
+    private String asiento;
     private String ubicacion;
     private double costoTotal;
     private Fecha fecha;
 
-    private static int CODIGO_DE_ENTRADA = 1000;
+    private static int CODIGO_DE_ENTRADA = 1000;    //lo inicializo en 1000 solo para que quede parecido a los ejemplos de IEntrada.
 
     public String getSector(){
         return sector;
     }
 
-    public int getNumeroDeAsiento(){
+    public String getNumeroDeAsiento(){
         return asiento;
     }
 
@@ -150,5 +142,25 @@ public class Entrada implements IEntrada{
         
         return sb.toString();
     }
+
+	@Override
+	public boolean equals(Object obj) {
+		
+		if(this == obj){
+			return true;
+		}
+		if(obj == null || getClass() != obj.getClass()){
+			return false;
+		}
+
+		Entrada entrada = (Entrada) obj;
+		return Objects.equals(codigoEntrada, entrada.codigoEntrada);
+
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(codigoEntrada, espectaculo);
+	}
 
 }

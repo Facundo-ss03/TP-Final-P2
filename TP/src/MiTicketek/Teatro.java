@@ -1,6 +1,5 @@
 
 package MiTicketek;
-
 public class Teatro extends SedesConPlateas{
 
     Teatro(String nombreSede, String direccion, int CAPACIDAD_MAXIMA, int ASIENTOS_X_FILA,
@@ -9,4 +8,5 @@ public class Teatro extends SedesConPlateas{
         super(nombreSede, direccion, CAPACIDAD_MAXIMA, listaDeSectores, capacidadPorSector, ASIENTOS_X_FILA, porcentajesAdicionales);
         
     }
+
 }

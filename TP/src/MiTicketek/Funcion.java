@@ -1,12 +1,12 @@
 
 package MiTicketek;
-
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Objects;
 
 public class Funcion {
     
-    public Funcion(Sede sede, double precio){
+    public Funcion(Sede sede, double precio, String fecha){
         
     	if(sede == null) {
     		throw new RuntimeException("Error: la sede es nula.");
@@ -14,14 +14,17 @@ public class Funcion {
     	if(precio < 0) {
     		throw new RuntimeException("Error: el precio es inválido.");
         }
-    	
+        if(fecha.trim().isEmpty()){
+            throw new RuntimeException("Error: la fecha es inválida");
+        }
+    	this.fecha = new Fecha(fecha);
         this.sede = sede;
         this.precioBase = precio;
 
         if(sede instanceof SedesConPlateas){
 
             SedesConPlateas cast = (SedesConPlateas) sede;
-            this.asientosVendidos = new HashMap<String, HashSet<Integer>>();
+            this.asientosVendidos = new HashMap<String, HashSet<String>>();
 
             for (String sector : cast.listarSectores()) {
                 
@@ -36,9 +39,10 @@ public class Funcion {
         }
     }
 
+    private Fecha fecha; 
     private Sede sede;
     private double precioBase;
-    private HashMap<String, HashSet<Integer>> asientosVendidos;  //<codigoEntrada, nroAsiento>  //anularEntrada() debe eliminar de este mapa los asientos de las entradas anuladas
+    private HashMap<String, HashSet<String>> asientosVendidos;  //<codigoEntrada, nroAsiento>  //anularEntrada() debe eliminar de este mapa los asientos de las entradas anuladas
     private int asientosVendidosEstadio;
 
     public Entrada crearEntrada(String emailUsuario, String nombreDeEspectaculo, String fechaDeFuncion) {
@@ -55,8 +59,6 @@ public class Funcion {
     	
         if(consultarDisponibilidadDeAsiento()){
 
-            Fecha fecha = new Fecha(fechaDeFuncion);
-            
             Entrada entrada = new Entrada(emailUsuario, nombreDeEspectaculo, sede.getNombre(), fecha, precioBase);
             asientosVendidosEstadio++;
     
@@ -69,30 +71,21 @@ public class Funcion {
     }
 
     public Entrada crearEntrada(String emailUsuario, String nombreDeEspectaculo,
-                                String fechaDeFuncion, String sector, int asiento) {
+                                String sector, int asiento) {
    	
         Entrada entrada;
         
         if(consultarDisponibilidadDeAsiento(asiento)){
                 
-            if(sede instanceof SedesConPlateas){
-        
-	            SedesConPlateas sedeSeleccionada = (SedesConPlateas) sede;
+	        String ubicacion = sede.getUbicacionDeAsiento(sector, asiento);
+	
+            double precioFinal = sede.calcularCostoFinal(sector, precioBase);
+	
+            entrada = new Entrada(emailUsuario, nombreDeEspectaculo, sede.getNombre(), sector, ubicacion, fecha, precioFinal);
+            asientosVendidos.get(sector).add(ubicacion);
+	
+            return entrada;
 	            
-	            int fila = sedeSeleccionada.buscarFila(sector, asiento);
-	            Fecha fecha = new Fecha(fechaDeFuncion);
-	
-	            double precioFinal = sedeSeleccionada.calcularCostoConAdicional(sector, precioBase);
-	
-	            entrada = new Entrada(emailUsuario, nombreDeEspectaculo, sede.getNombre(), sector, asiento, fila, fecha, precioFinal);
-	            asientosVendidos.get(sector).add(asiento);
-	
-	            return entrada;
-	            
-            } else {
-                throw new RuntimeException("Error: La sede ingresada no es una sede con plateas.");
-            }
-            
         } else {
                throw new RuntimeException("El asiento solicitado no está disponible.");
         }
@@ -113,7 +106,7 @@ public class Funcion {
             else return true;
     }
 
-    public void  quitarEntrada(String sector, int asiento){
+    public void  quitarEntrada(String sector, String asiento){
     	
         asientosVendidos.get(sector).remove(asiento);    
 
@@ -123,9 +116,9 @@ public class Funcion {
         asientosVendidosEstadio -= 1;
     }
 
-    public double calcularCostoFinal(){
+    public double calcularCostoEntrada(){
 
-        return precioBase;
+        return sede.calcularCostoFinal(sede.getUbicacionDeAsiento(), precioBase);
 
     }
     
@@ -134,16 +127,24 @@ public class Funcion {
     }
 
 
-    public double calcularCostoFinal(String sector){
+    public double calcularCostoEntrada(String sector){
 
-        if(sede instanceof SedesConPlateas){
+        return sede.calcularCostoFinal(sector, precioBase);
     
-        SedesConPlateas s = (SedesConPlateas) sede;
-        return s.calcularCostoConAdicional(sector, precioBase);
-    
-        } else {
-                throw new RuntimeException("Error: la sede de la función no tiene plateas.");
-        }
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if(this == obj) return true;
+        if(obj == null || getClass() != obj.getClass()) return false;
+
+        Funcion funcion = (Funcion) obj;
+        return Objects.equals(precioBase, funcion.precioBase) && Objects.equals(sede, funcion.sede) && Objects.equals(fecha, funcion.fecha);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(sede, fecha);
     }
 
     @Override
@@ -159,13 +160,12 @@ public class Funcion {
     
         } else {
 
-            SedesConPlateas miSede = (SedesConPlateas) sede;
             sb.append(sede.getNombre() + " - ");
-            for (String sector : miSede.listarSectores()) {
+            for (String sector : sede.listarSectores()) {
 
                 sb.append(sector + ": ");
                 sb.append(asientosVendidos.get(sector).size());
-                sb.append("/" + miSede.getCapacidadMaximaDeSector(sector));
+                sb.append("/" + sede.getCapacidadMaxima(sector));
                 sb.append(" | ");
                 
             }
