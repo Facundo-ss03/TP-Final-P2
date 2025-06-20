@@ -1,0 +1,154 @@
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Objects;
+
+public class Usuario {
+
+    public Usuario(String nombre, String apellido, String contraseña){
+
+    	if(nombre.trim().isEmpty()) {
+    		throw new RuntimeException("Error: el nombre ingresado está vacío.");
+    	}
+    	if(apellido.trim().isEmpty()) {
+    		throw new RuntimeException("Error: el apellido ingresado está vacío.");
+    	}
+    	if(contraseña.trim().isEmpty()){
+    		throw new RuntimeException("Error: la contraseña ingresada está vacía.");
+    	}
+    	
+        this.nombre = nombre;
+        this.apellido = apellido;
+        this.contraseña = contraseña;
+        this.entradas = new HashMap<String, Entrada>();
+    }
+
+    private String nombre;
+    private String apellido;
+    private String contraseña;
+    private HashMap<String, Entrada> entradas;
+
+    public void agregarEntrada(Entrada nuevaEntrada){
+
+    	if(nuevaEntrada == null) {
+    		throw new RuntimeException("Error: la entrada es nula.");
+    	}
+    	
+        entradas.put(nuevaEntrada.getCodigoDeEntrada(), nuevaEntrada);
+
+    }
+
+    public boolean validarContraseña(String contraseña){
+        
+        if(contraseña.trim().isEmpty()){
+            throw new RuntimeException("Error: la contraseña ingresada está vacío.");
+        }
+        
+        if(this.contraseña.equals(contraseña)) return true;
+            else return false;
+        
+    }
+
+    public List<Entrada> listarEntradasPorEspectaculo(String espectaculo){
+
+    	if(espectaculo.trim().isEmpty()) {
+    		throw new RuntimeException("Error: el espectaculo ingresado está vacío.");
+    	}
+    	
+        ArrayList<Entrada> lista = new ArrayList<Entrada>();        
+      
+        for(Entrada entrada : entradas.values()) {
+
+            if (entrada.getEspectaculo().equals(espectaculo)) {
+            	
+                lista.add(entrada);
+            }
+        }
+        
+        return lista;
+                
+    }
+
+    public List<IEntrada> listarEntradasFuturas(){
+
+        ArrayList<IEntrada> lista = new ArrayList<IEntrada>();
+
+        for(Entrada entrada : entradas.values()) {
+
+            if (Fecha.esPosteriorALaActual(entrada.getFecha())) {
+                lista.add(entrada);
+            }
+            
+        }
+        
+        return lista;        
+    }
+    
+    public List<IEntrada> listarEntradas(){
+
+        ArrayList<IEntrada> lista = new ArrayList<IEntrada>();
+
+        Iterator iterador = entradas.values().iterator();
+        
+        while (iterador.hasNext()) {
+            lista.add((Entrada)iterador.next());
+        }
+
+        return lista;
+        
+    }
+
+    public void eliminarEntrada(String codigo){
+
+    	if(codigo.trim().isEmpty()) {
+    		throw new RuntimeException("Error: el códgio de entrada ingresado está vacío.");
+    	}
+    	
+        if(entradas.containsKey(codigo)){
+
+            entradas.remove(codigo);
+
+        } else {
+        	throw new RuntimeException("Error: el usuario no posee la entrada que se está intentando eliminar");
+        }
+
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if(this == obj) return true;
+        if(obj == null || getClass() != obj.getClass()) return false;
+    
+        Usuario usuario = (Usuario) obj;
+        return Objects.deepEquals(nombre, usuario.nombre) && Objects.deepEquals(apellido, usuario.apellido) && Objects.deepEquals(contraseña, usuario.contraseña);
+    }
+
+    @Override
+    public int hashCode() {
+        
+        return Objects.hash(nombre, apellido, contraseña);
+    }
+
+    @Override
+    public String toString() {
+
+        StringBuilder sb = new StringBuilder();
+
+        sb.append("\n" + "Nombre: " + nombre + " ");
+        sb.append("\n" + "Apellido: " + apellido);
+        sb.append("\n" + "Contraseña: " + contraseña);
+        
+        sb.append("\nEntradas: \n");
+        
+        for (Entrada elem : entradas.values()) {
+
+            sb.append(elem.toString() + "\n");
+
+        }
+
+        return sb.toString();
+        
+    }
+}

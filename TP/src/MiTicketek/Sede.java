@@ -5,7 +5,7 @@ import java.util.Objects;
 
 public abstract class Sede{
 
-	public Sede(String nombreSede, String direccion, int CAPACIDAD_MAXIMA){
+	public Sede(String nombreSede, String direccion, int capacidadMaxima){
 		
 		if(nombreSede.trim().isEmpty()) {
 			throw new RuntimeException("Error: el nombre está vacío.");
@@ -13,13 +13,13 @@ public abstract class Sede{
 		if(direccion.trim().isEmpty()) {
 			throw new RuntimeException("Error: la dirección está vacía.");
 		}
-		if(CAPACIDAD_MAXIMA <= 0) {
+		if(capacidadMaxima <= 0) {
 			throw new RuntimeException("Error: la capacidad máxima es negativa o cero.");
 		}
 		
 		this.nombre = nombreSede;
 		this.direccion = direccion;
-		this.capacidadMaxima = CAPACIDAD_MAXIMA;
+		this.capacidadMaxima = capacidadMaxima;
 		
 	}
 	

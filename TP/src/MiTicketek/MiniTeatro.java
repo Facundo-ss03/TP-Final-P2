@@ -8,38 +8,49 @@ public class MiniTeatro extends SedesConPlateas{
         
         super(nombreSede, direccion, capMaxima, listaSectores, capacidadPorSector, asientosPorFila, porcentajeAdicional);
 
-        if(puestos < 0) {
+        if(cantPuestos < 0) {
         	throw new RuntimeException("Error: la cantidad de puestos es negativa.");
         }
-        if(consumicionLibre < 0) {
+        if(valorDeConsumicion < 0) {
         	throw new RuntimeException("Error: el valor de la consumición libre es negativo.");
         }
-        this.puestos = cantPuestos;
-        this.consumicionLibre = valorDeConsumicion;
+        this.PUESTOS = cantPuestos;
+        this.CONSUMICION_LIBRE = valorDeConsumicion;
 
     }
 
-    private int puestos;
-    private double consumicionLibre;
+    private int PUESTOS;
+    private double CONSUMICION_LIBRE;
     
     @Override
     public double calcularCostoFinal(String sector, double precioBase) {
         
-        return super.calcularCostoFinal(sector, precioBase) + consumicionLibre;
+        return super.calcularCostoFinal(sector, precioBase) + CONSUMICION_LIBRE;
 
     }
 
+    @Override
+    public String toString() {
+
+    	StringBuilder sb = new StringBuilder();
+    	sb.append(super.toString());
+    	sb.append("Cantidad de puestos: " + PUESTOS);
+    	sb.append("\n" + "Valor de consumición libre: " + CONSUMICION_LIBRE + "\n");
+
+    	return sb.toString();
+    }
+    
     @Override
     public boolean equals(Object obj) {
         if(!super.equals(obj)) return false;
 
         MiniTeatro miniTeatro = (MiniTeatro) obj; 
-        return puestos == miniTeatro.puestos;
+        return PUESTOS == miniTeatro.PUESTOS;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(puestos, super.hashCode());
+        return Objects.hash(PUESTOS, super.hashCode());
     }
 
 }

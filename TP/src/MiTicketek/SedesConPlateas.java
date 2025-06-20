@@ -7,7 +7,7 @@ import javax.management.RuntimeErrorException;
 public abstract class SedesConPlateas extends Sede {
 
     SedesConPlateas(String nombreSede, String direccion, int CAPACIDAD_MAXIMA, String[] listaDeSectores, 
-                    int[] capacidadPorSector, int ASIENTOS_X_FILA, int[] porcentajesAdicionales) {
+                    int[] capacidadPorSector, int asientosPorFila, int[] porcentajesAdicionales) {
 
         super(nombreSede, direccion, CAPACIDAD_MAXIMA);
 
@@ -20,7 +20,7 @@ public abstract class SedesConPlateas extends Sede {
         if(porcentajesAdicionales == null || porcentajesAdicionales.length == 0) {
         	throw new RuntimeException("Error: la lista de porcentajes está vacía o es nula.");
         }
-        if(ASIENTOS_X_FILA <= 0) {
+        if(asientosPorFila <= 0) {
         	throw new RuntimeException("Error: la cantidad de asientos por fila es negativa o cero.");
         }
         if((listaDeSectores.length + capacidadPorSector.length + porcentajesAdicionales.length)%3 != 0) {
@@ -30,7 +30,7 @@ public abstract class SedesConPlateas extends Sede {
         sectores = new  HashMap<String, Sector>();
 
         this.listaSectores = listaDeSectores;
-        configurarSectores(listaDeSectores, capacidadPorSector, ASIENTOS_X_FILA, porcentajesAdicionales);
+        configurarSectores(listaDeSectores, capacidadPorSector, asientosPorFila, porcentajesAdicionales);
     }
 
     private HashMap<String, Sector> sectores;

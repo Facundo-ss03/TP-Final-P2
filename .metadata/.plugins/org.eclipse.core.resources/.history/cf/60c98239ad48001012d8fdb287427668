@@ -1,0 +1,45 @@
+package prueba;
+import java.util.Objects;
+
+public class MiniTeatro extends SedesConPlateas{
+
+    MiniTeatro(String nombreSede, String direccion, int capMaxima, int asientosPorFila, int cantPuestos, 
+                double valorDeConsumicion, String[] listaSectores, int[] capacidadPorSector, int[] porcentajeAdicional) {
+        
+        super(nombreSede, direccion, capMaxima, listaSectores, capacidadPorSector, asientosPorFila, porcentajeAdicional);
+
+        if(puestos < 0) {
+        	throw new RuntimeException("Error: la cantidad de puestos es negativa.");
+        }
+        if(consumicionLibre < 0) {
+        	throw new RuntimeException("Error: el valor de la consumición libre es negativo.");
+        }
+        this.puestos = cantPuestos;
+        this.consumicionLibre = valorDeConsumicion;
+
+    }
+
+    private int puestos;
+    private double consumicionLibre;
+    
+    @Override
+    public double calcularCostoFinal(String sector, double precioBase) {
+        
+        return super.calcularCostoFinal(sector, precioBase) + consumicionLibre;
+
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if(!super.equals(obj)) return false;
+
+        MiniTeatro miniTeatro = (MiniTeatro) obj; 
+        return puestos == miniTeatro.puestos;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(puestos, super.hashCode());
+    }
+
+}

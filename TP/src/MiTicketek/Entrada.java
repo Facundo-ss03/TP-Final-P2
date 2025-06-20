@@ -3,7 +3,7 @@ import java.util.Objects;
 
 public class Entrada implements IEntrada{
 
-    public Entrada(String emailUsuario, String nombreDeEspectaculo, String nombreSede, Fecha fechaDeFuncion, double precio) {
+    public Entrada(String emailUsuario, String nombreDeEspectaculo, String nombreSede, Fecha fechaDeFuncion, double costo) {
 
     	if(emailUsuario.trim().isEmpty()) {
     		throw new RuntimeException("Error: el email está vacío.");
@@ -17,7 +17,7 @@ public class Entrada implements IEntrada{
     	if(fechaDeFuncion == null) {
     		throw new RuntimeException("Error: la fecha de la función es nula.");
     	}
-    	if(precio < 0) {
+    	if(costo < 0) {
     		throw new RuntimeException("Error: el precio es negativo.");
     	}
     	
@@ -29,7 +29,7 @@ public class Entrada implements IEntrada{
         this.ubicacion = sector;
 
         this.fecha = fechaDeFuncion;
-        this.costoTotal = precio;
+        this.costoTotal = costo;
 
         CODIGO_DE_ENTRADA += 1;
         this.codigoEntrada = CODIGO_DE_ENTRADA + "";

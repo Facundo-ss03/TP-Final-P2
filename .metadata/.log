@@ -1,0 +1,545 @@
+!SESSION 2025-06-04 13:00:33.228 -----------------------------------------------
+eclipse.buildId=4.35.0.20250306-0811
+java.version=21.0.6
+java.vendor=Eclipse Adoptium
+BootLoader constants: OS=win32, ARCH=x86_64, WS=win32, NL=es_AR
+Framework arguments:  -product org.eclipse.epp.package.java.product
+Command-line arguments:  -os win32 -ws win32 -arch x86_64 -product org.eclipse.epp.package.java.product
+
+!ENTRY ch.qos.logback.classic 1 0 2025-06-04 13:00:35.108
+!MESSAGE Activated before the state location was initialized. Retry after the state location is initialized.
+
+!ENTRY ch.qos.logback.classic 1 0 2025-06-04 13:01:21.240
+!MESSAGE Logback config file: C:\Users\Facundo\Desktop\TP-Final-P2\.metadata\.plugins\org.eclipse.m2e.logback\logback.2.7.0.20241001-1350.xml
+
+!ENTRY org.eclipse.egit.ui 2 0 2025-06-04 13:01:36.755
+!MESSAGE Warning: The environment variable HOME is not set. The following directory will be used to store the Git
+user global configuration and to define the default location to store repositories: 'C:\Users\Facundo'. If this is
+not correct please set the HOME environment variable and restart Eclipse. Otherwise Git for Windows and
+EGit might behave differently since they see different configuration options.
+This warning can be switched off on the Team > Git > Confirmations and Warnings preference page.
+!SESSION 2025-06-06 02:38:18.040 -----------------------------------------------
+eclipse.buildId=4.35.0.20250306-0811
+java.version=21.0.6
+java.vendor=Eclipse Adoptium
+BootLoader constants: OS=win32, ARCH=x86_64, WS=win32, NL=es_AR
+Framework arguments:  -product org.eclipse.epp.package.java.product
+Command-line arguments:  -os win32 -ws win32 -arch x86_64 -product org.eclipse.epp.package.java.product
+
+!ENTRY ch.qos.logback.classic 1 0 2025-06-06 02:38:20.320
+!MESSAGE Activated before the state location was initialized. Retry after the state location is initialized.
+
+!ENTRY ch.qos.logback.classic 1 0 2025-06-06 02:38:57.383
+!MESSAGE Logback config file: C:\Users\Facundo\Desktop\TP-Final-P2\.metadata\.plugins\org.eclipse.m2e.logback\logback.2.7.0.20241001-1350.xml
+
+!ENTRY org.eclipse.egit.ui 2 0 2025-06-06 02:39:02.292
+!MESSAGE Warning: The environment variable HOME is not set. The following directory will be used to store the Git
+user global configuration and to define the default location to store repositories: 'C:\Users\Facundo'. If this is
+not correct please set the HOME environment variable and restart Eclipse. Otherwise Git for Windows and
+EGit might behave differently since they see different configuration options.
+This warning can be switched off on the Team > Git > Confirmations and Warnings preference page.
+!SESSION 2025-06-12 16:41:09.456 -----------------------------------------------
+eclipse.buildId=4.35.0.20250306-0811
+java.version=21.0.6
+java.vendor=Eclipse Adoptium
+BootLoader constants: OS=win32, ARCH=x86_64, WS=win32, NL=es_AR
+Framework arguments:  -product org.eclipse.epp.package.java.product
+Command-line arguments:  -os win32 -ws win32 -arch x86_64 -product org.eclipse.epp.package.java.product
+
+!ENTRY ch.qos.logback.classic 1 0 2025-06-12 16:41:48.147
+!MESSAGE Activated before the state location was initialized. Retry after the state location is initialized.
+
+!ENTRY ch.qos.logback.classic 1 0 2025-06-12 16:42:06.247
+!MESSAGE Logback config file: C:\Users\Facundo\Desktop\TP-Final-P2\.metadata\.plugins\org.eclipse.m2e.logback\logback.2.7.0.20241001-1350.xml
+
+!ENTRY org.eclipse.egit.ui 2 0 2025-06-12 16:42:12.357
+!MESSAGE Warning: The environment variable HOME is not set. The following directory will be used to store the Git
+user global configuration and to define the default location to store repositories: 'C:\Users\Facundo'. If this is
+not correct please set the HOME environment variable and restart Eclipse. Otherwise Git for Windows and
+EGit might behave differently since they see different configuration options.
+This warning can be switched off on the Team > Git > Confirmations and Warnings preference page.
+
+!ENTRY org.eclipse.ui 4 0 2025-06-13 01:19:04.496
+!MESSAGE Unhandled event loop exception
+!STACK 0
+org.eclipse.swt.SWTException: Widget is disposed
+	at org.eclipse.swt.SWT.error(SWT.java:4932)
+	at org.eclipse.swt.SWT.error(SWT.java:4847)
+	at org.eclipse.swt.SWT.error(SWT.java:4818)
+	at org.eclipse.swt.widgets.Widget.error(Widget.java:501)
+	at org.eclipse.swt.widgets.Widget.checkWidget(Widget.java:420)
+	at org.eclipse.swt.widgets.Menu.indexOf(Menu.java:832)
+	at org.eclipse.swt.widgets.Menu.wmTimer(Menu.java:1352)
+	at org.eclipse.swt.widgets.Control.WM_TIMER(Control.java:5692)
+	at org.eclipse.swt.widgets.Control.windowProc(Control.java:4841)
+	at org.eclipse.swt.widgets.Canvas.windowProc(Canvas.java:336)
+	at org.eclipse.swt.widgets.Decorations.windowProc(Decorations.java:1482)
+	at org.eclipse.swt.widgets.Shell.windowProc(Shell.java:2354)
+	at org.eclipse.swt.widgets.Display.windowProc(Display.java:5089)
+	at org.eclipse.swt.internal.win32.OS.TrackPopupMenu(Native Method)
+	at org.eclipse.swt.widgets.Menu._setVisible(Menu.java:241)
+	at org.eclipse.swt.widgets.Display.runPopups(Display.java:4160)
+	at org.eclipse.swt.widgets.Display.readAndDispatch(Display.java:3701)
+	at org.eclipse.e4.ui.internal.workbench.swt.PartRenderingEngine$5.run(PartRenderingEngine.java:1151)
+	at org.eclipse.core.databinding.observable.Realm.runWithDefault(Realm.java:339)
+	at org.eclipse.e4.ui.internal.workbench.swt.PartRenderingEngine.run(PartRenderingEngine.java:1042)
+	at org.eclipse.e4.ui.internal.workbench.E4Workbench.createAndRunUI(E4Workbench.java:153)
+	at org.eclipse.ui.internal.Workbench.lambda$3(Workbench.java:668)
+	at org.eclipse.core.databinding.observable.Realm.runWithDefault(Realm.java:339)
+	at org.eclipse.ui.internal.Workbench.createAndRunWorkbench(Workbench.java:576)
+	at org.eclipse.ui.PlatformUI.createAndRunWorkbench(PlatformUI.java:173)
+	at org.eclipse.ui.internal.ide.application.IDEApplication.start(IDEApplication.java:178)
+	at org.eclipse.equinox.internal.app.EclipseAppHandle.run(EclipseAppHandle.java:208)
+	at org.eclipse.core.runtime.internal.adaptor.EclipseAppLauncher.runApplication(EclipseAppLauncher.java:149)
+	at org.eclipse.core.runtime.internal.adaptor.EclipseAppLauncher.start(EclipseAppLauncher.java:115)
+	at org.eclipse.core.runtime.adaptor.EclipseStarter.run(EclipseStarter.java:467)
+	at org.eclipse.core.runtime.adaptor.EclipseStarter.run(EclipseStarter.java:298)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at org.eclipse.equinox.launcher.Main.invokeFramework(Main.java:670)
+	at org.eclipse.equinox.launcher.Main.basicRun(Main.java:607)
+	at org.eclipse.equinox.launcher.Main.run(Main.java:1492)
+!SESSION 2025-06-13 01:39:25.633 -----------------------------------------------
+eclipse.buildId=4.35.0.20250306-0811
+java.version=21.0.6
+java.vendor=Eclipse Adoptium
+BootLoader constants: OS=win32, ARCH=x86_64, WS=win32, NL=es_AR
+Framework arguments:  -product org.eclipse.epp.package.java.product
+Command-line arguments:  -os win32 -ws win32 -arch x86_64 -product org.eclipse.epp.package.java.product
+
+!ENTRY ch.qos.logback.classic 1 0 2025-06-13 01:39:56.441
+!MESSAGE Activated before the state location was initialized. Retry after the state location is initialized.
+
+!ENTRY ch.qos.logback.classic 1 0 2025-06-13 01:40:01.344
+!MESSAGE Logback config file: C:\Users\Facundo\Desktop\TP-Final-P2\.metadata\.plugins\org.eclipse.m2e.logback\logback.2.7.0.20241001-1350.xml
+
+!ENTRY org.eclipse.egit.ui 2 0 2025-06-13 01:40:08.006
+!MESSAGE Warning: The environment variable HOME is not set. The following directory will be used to store the Git
+user global configuration and to define the default location to store repositories: 'C:\Users\Facundo'. If this is
+not correct please set the HOME environment variable and restart Eclipse. Otherwise Git for Windows and
+EGit might behave differently since they see different configuration options.
+This warning can be switched off on the Team > Git > Confirmations and Warnings preference page.
+!SESSION 2025-06-13 20:04:13.303 -----------------------------------------------
+eclipse.buildId=4.35.0.20250306-0811
+java.version=21.0.6
+java.vendor=Eclipse Adoptium
+BootLoader constants: OS=win32, ARCH=x86_64, WS=win32, NL=es_AR
+Framework arguments:  -product org.eclipse.epp.package.java.product
+Command-line arguments:  -os win32 -ws win32 -arch x86_64 -product org.eclipse.epp.package.java.product
+
+!ENTRY ch.qos.logback.classic 1 0 2025-06-13 20:04:48.403
+!MESSAGE Activated before the state location was initialized. Retry after the state location is initialized.
+
+!ENTRY ch.qos.logback.classic 1 0 2025-06-13 20:05:32.858
+!MESSAGE Logback config file: C:\Users\Facundo\Desktop\TP-Final-P2\.metadata\.plugins\org.eclipse.m2e.logback\logback.2.7.0.20241001-1350.xml
+
+!ENTRY org.eclipse.egit.ui 2 0 2025-06-13 20:05:40.894
+!MESSAGE Warning: The environment variable HOME is not set. The following directory will be used to store the Git
+user global configuration and to define the default location to store repositories: 'C:\Users\Facundo'. If this is
+not correct please set the HOME environment variable and restart Eclipse. Otherwise Git for Windows and
+EGit might behave differently since they see different configuration options.
+This warning can be switched off on the Team > Git > Confirmations and Warnings preference page.
+
+!ENTRY org.eclipse.jdt.junit 4 4 2025-06-13 20:22:28.675
+!MESSAGE Error
+!STACK 0
+java.lang.reflect.InvocationTargetException
+	at org.eclipse.jdt.internal.junit.util.TestSearchEngine.lambda$1(TestSearchEngine.java:74)
+	at org.eclipse.jface.operation.ModalContext$ModalContextThread.run(ModalContext.java:124)
+Caused by: Java Model Exception: Error in Java Model (code 969): TicketekTest [in TicketekTest.java [in MiTicketek [in src [in TP]]]] does not exist
+	at org.eclipse.jdt.internal.core.JavaElement.newNotPresentException(JavaElement.java:546)
+	at org.eclipse.jdt.internal.core.JavaElement.openWhenClosed(JavaElement.java:589)
+	at org.eclipse.jdt.internal.core.JavaElement.getElementInfo(JavaElement.java:292)
+	at org.eclipse.jdt.internal.core.JavaElement.getElementInfo(JavaElement.java:278)
+	at org.eclipse.jdt.internal.core.JavaElement.getChildren(JavaElement.java:233)
+	at org.eclipse.jdt.internal.core.JavaElement.getChildrenOfType(JavaElement.java:247)
+	at org.eclipse.jdt.internal.core.SourceType.getMethods(SourceType.java:499)
+	at org.eclipse.jdt.internal.junit.util.TestSearchEngine.collectDeclaredMethodNames(TestSearchEngine.java:120)
+	at org.eclipse.jdt.internal.junit.util.TestSearchEngine.collectMethodNames(TestSearchEngine.java:88)
+	at org.eclipse.jdt.internal.junit.util.TestSearchEngine.lambda$1(TestSearchEngine.java:72)
+	... 1 more
+Root exception:
+Java Model Exception: Error in Java Model (code 969): TicketekTest [in TicketekTest.java [in MiTicketek [in src [in TP]]]] does not exist
+	at org.eclipse.jdt.internal.core.JavaElement.newNotPresentException(JavaElement.java:546)
+	at org.eclipse.jdt.internal.core.JavaElement.openWhenClosed(JavaElement.java:589)
+	at org.eclipse.jdt.internal.core.JavaElement.getElementInfo(JavaElement.java:292)
+	at org.eclipse.jdt.internal.core.JavaElement.getElementInfo(JavaElement.java:278)
+	at org.eclipse.jdt.internal.core.JavaElement.getChildren(JavaElement.java:233)
+	at org.eclipse.jdt.internal.core.JavaElement.getChildrenOfType(JavaElement.java:247)
+	at org.eclipse.jdt.internal.core.SourceType.getMethods(SourceType.java:499)
+	at org.eclipse.jdt.internal.junit.util.TestSearchEngine.collectDeclaredMethodNames(TestSearchEngine.java:120)
+	at org.eclipse.jdt.internal.junit.util.TestSearchEngine.collectMethodNames(TestSearchEngine.java:88)
+	at org.eclipse.jdt.internal.junit.util.TestSearchEngine.lambda$1(TestSearchEngine.java:72)
+	at org.eclipse.jface.operation.ModalContext$ModalContextThread.run(ModalContext.java:124)
+
+!ENTRY org.eclipse.jdt.junit 4 4 2025-06-13 20:22:28.711
+!MESSAGE Error
+!STACK 0
+java.lang.reflect.InvocationTargetException
+	at org.eclipse.jdt.internal.junit.util.TestSearchEngine.lambda$1(TestSearchEngine.java:74)
+	at org.eclipse.jface.operation.ModalContext$ModalContextThread.run(ModalContext.java:124)
+Caused by: Java Model Exception: Error in Java Model (code 969): TicketekTest [in TicketekTest.java [in MiTicketek [in src [in TP]]]] does not exist
+	at org.eclipse.jdt.internal.core.JavaElement.newNotPresentException(JavaElement.java:546)
+	at org.eclipse.jdt.internal.core.JavaElement.openWhenClosed(JavaElement.java:589)
+	at org.eclipse.jdt.internal.core.JavaElement.getElementInfo(JavaElement.java:292)
+	at org.eclipse.jdt.internal.core.JavaElement.getElementInfo(JavaElement.java:278)
+	at org.eclipse.jdt.internal.core.JavaElement.getChildren(JavaElement.java:233)
+	at org.eclipse.jdt.internal.core.JavaElement.getChildrenOfType(JavaElement.java:247)
+	at org.eclipse.jdt.internal.core.SourceType.getMethods(SourceType.java:499)
+	at org.eclipse.jdt.internal.junit.util.TestSearchEngine.collectDeclaredMethodNames(TestSearchEngine.java:120)
+	at org.eclipse.jdt.internal.junit.util.TestSearchEngine.collectMethodNames(TestSearchEngine.java:88)
+	at org.eclipse.jdt.internal.junit.util.TestSearchEngine.lambda$1(TestSearchEngine.java:72)
+	... 1 more
+Root exception:
+Java Model Exception: Error in Java Model (code 969): TicketekTest [in TicketekTest.java [in MiTicketek [in src [in TP]]]] does not exist
+	at org.eclipse.jdt.internal.core.JavaElement.newNotPresentException(JavaElement.java:546)
+	at org.eclipse.jdt.internal.core.JavaElement.openWhenClosed(JavaElement.java:589)
+	at org.eclipse.jdt.internal.core.JavaElement.getElementInfo(JavaElement.java:292)
+	at org.eclipse.jdt.internal.core.JavaElement.getElementInfo(JavaElement.java:278)
+	at org.eclipse.jdt.internal.core.JavaElement.getChildren(JavaElement.java:233)
+	at org.eclipse.jdt.internal.core.JavaElement.getChildrenOfType(JavaElement.java:247)
+	at org.eclipse.jdt.internal.core.SourceType.getMethods(SourceType.java:499)
+	at org.eclipse.jdt.internal.junit.util.TestSearchEngine.collectDeclaredMethodNames(TestSearchEngine.java:120)
+	at org.eclipse.jdt.internal.junit.util.TestSearchEngine.collectMethodNames(TestSearchEngine.java:88)
+	at org.eclipse.jdt.internal.junit.util.TestSearchEngine.lambda$1(TestSearchEngine.java:72)
+	at org.eclipse.jface.operation.ModalContext$ModalContextThread.run(ModalContext.java:124)
+
+!ENTRY org.eclipse.jdt.junit 4 4 2025-06-13 20:22:28.799
+!MESSAGE Error
+!STACK 0
+java.lang.reflect.InvocationTargetException
+	at org.eclipse.jdt.internal.junit.util.TestSearchEngine.lambda$1(TestSearchEngine.java:74)
+	at org.eclipse.jface.operation.ModalContext$ModalContextThread.run(ModalContext.java:124)
+Caused by: Java Model Exception: Error in Java Model (code 969): TicketekTest [in TicketekTest.java [in MiTicketek [in src [in TP]]]] does not exist
+	at org.eclipse.jdt.internal.core.JavaElement.newNotPresentException(JavaElement.java:546)
+	at org.eclipse.jdt.internal.core.JavaElement.openWhenClosed(JavaElement.java:589)
+	at org.eclipse.jdt.internal.core.JavaElement.getElementInfo(JavaElement.java:292)
+	at org.eclipse.jdt.internal.core.JavaElement.getElementInfo(JavaElement.java:278)
+	at org.eclipse.jdt.internal.core.JavaElement.getChildren(JavaElement.java:233)
+	at org.eclipse.jdt.internal.core.JavaElement.getChildrenOfType(JavaElement.java:247)
+	at org.eclipse.jdt.internal.core.SourceType.getMethods(SourceType.java:499)
+	at org.eclipse.jdt.internal.junit.util.TestSearchEngine.collectDeclaredMethodNames(TestSearchEngine.java:120)
+	at org.eclipse.jdt.internal.junit.util.TestSearchEngine.collectMethodNames(TestSearchEngine.java:88)
+	at org.eclipse.jdt.internal.junit.util.TestSearchEngine.lambda$1(TestSearchEngine.java:72)
+	... 1 more
+Root exception:
+Java Model Exception: Error in Java Model (code 969): TicketekTest [in TicketekTest.java [in MiTicketek [in src [in TP]]]] does not exist
+	at org.eclipse.jdt.internal.core.JavaElement.newNotPresentException(JavaElement.java:546)
+	at org.eclipse.jdt.internal.core.JavaElement.openWhenClosed(JavaElement.java:589)
+	at org.eclipse.jdt.internal.core.JavaElement.getElementInfo(JavaElement.java:292)
+	at org.eclipse.jdt.internal.core.JavaElement.getElementInfo(JavaElement.java:278)
+	at org.eclipse.jdt.internal.core.JavaElement.getChildren(JavaElement.java:233)
+	at org.eclipse.jdt.internal.core.JavaElement.getChildrenOfType(JavaElement.java:247)
+	at org.eclipse.jdt.internal.core.SourceType.getMethods(SourceType.java:499)
+	at org.eclipse.jdt.internal.junit.util.TestSearchEngine.collectDeclaredMethodNames(TestSearchEngine.java:120)
+	at org.eclipse.jdt.internal.junit.util.TestSearchEngine.collectMethodNames(TestSearchEngine.java:88)
+	at org.eclipse.jdt.internal.junit.util.TestSearchEngine.lambda$1(TestSearchEngine.java:72)
+	at org.eclipse.jface.operation.ModalContext$ModalContextThread.run(ModalContext.java:124)
+
+!ENTRY org.eclipse.jdt.junit 4 4 2025-06-13 20:22:28.836
+!MESSAGE Error
+!STACK 0
+java.lang.reflect.InvocationTargetException
+	at org.eclipse.jdt.internal.junit.util.TestSearchEngine.lambda$1(TestSearchEngine.java:74)
+	at org.eclipse.jface.operation.ModalContext$ModalContextThread.run(ModalContext.java:124)
+Caused by: Java Model Exception: Error in Java Model (code 969): TicketekTest [in TicketekTest.java [in MiTicketek [in src [in TP]]]] does not exist
+	at org.eclipse.jdt.internal.core.JavaElement.newNotPresentException(JavaElement.java:546)
+	at org.eclipse.jdt.internal.core.JavaElement.openWhenClosed(JavaElement.java:589)
+	at org.eclipse.jdt.internal.core.JavaElement.getElementInfo(JavaElement.java:292)
+	at org.eclipse.jdt.internal.core.JavaElement.getElementInfo(JavaElement.java:278)
+	at org.eclipse.jdt.internal.core.JavaElement.getChildren(JavaElement.java:233)
+	at org.eclipse.jdt.internal.core.JavaElement.getChildrenOfType(JavaElement.java:247)
+	at org.eclipse.jdt.internal.core.SourceType.getMethods(SourceType.java:499)
+	at org.eclipse.jdt.internal.junit.util.TestSearchEngine.collectDeclaredMethodNames(TestSearchEngine.java:120)
+	at org.eclipse.jdt.internal.junit.util.TestSearchEngine.collectMethodNames(TestSearchEngine.java:88)
+	at org.eclipse.jdt.internal.junit.util.TestSearchEngine.lambda$1(TestSearchEngine.java:72)
+	... 1 more
+Root exception:
+Java Model Exception: Error in Java Model (code 969): TicketekTest [in TicketekTest.java [in MiTicketek [in src [in TP]]]] does not exist
+	at org.eclipse.jdt.internal.core.JavaElement.newNotPresentException(JavaElement.java:546)
+	at org.eclipse.jdt.internal.core.JavaElement.openWhenClosed(JavaElement.java:589)
+	at org.eclipse.jdt.internal.core.JavaElement.getElementInfo(JavaElement.java:292)
+	at org.eclipse.jdt.internal.core.JavaElement.getElementInfo(JavaElement.java:278)
+	at org.eclipse.jdt.internal.core.JavaElement.getChildren(JavaElement.java:233)
+	at org.eclipse.jdt.internal.core.JavaElement.getChildrenOfType(JavaElement.java:247)
+	at org.eclipse.jdt.internal.core.SourceType.getMethods(SourceType.java:499)
+	at org.eclipse.jdt.internal.junit.util.TestSearchEngine.collectDeclaredMethodNames(TestSearchEngine.java:120)
+	at org.eclipse.jdt.internal.junit.util.TestSearchEngine.collectMethodNames(TestSearchEngine.java:88)
+	at org.eclipse.jdt.internal.junit.util.TestSearchEngine.lambda$1(TestSearchEngine.java:72)
+	at org.eclipse.jface.operation.ModalContext$ModalContextThread.run(ModalContext.java:124)
+
+!ENTRY org.eclipse.jdt.junit 4 4 2025-06-13 20:22:28.871
+!MESSAGE Error
+!STACK 0
+java.lang.reflect.InvocationTargetException
+	at org.eclipse.jdt.internal.junit.util.TestSearchEngine.lambda$1(TestSearchEngine.java:74)
+	at org.eclipse.jface.operation.ModalContext$ModalContextThread.run(ModalContext.java:124)
+Caused by: Java Model Exception: Error in Java Model (code 969): TicketekTest [in TicketekTest.java [in MiTicketek [in src [in TP]]]] does not exist
+	at org.eclipse.jdt.internal.core.JavaElement.newNotPresentException(JavaElement.java:546)
+	at org.eclipse.jdt.internal.core.JavaElement.openWhenClosed(JavaElement.java:589)
+	at org.eclipse.jdt.internal.core.JavaElement.getElementInfo(JavaElement.java:292)
+	at org.eclipse.jdt.internal.core.JavaElement.getElementInfo(JavaElement.java:278)
+	at org.eclipse.jdt.internal.core.JavaElement.getChildren(JavaElement.java:233)
+	at org.eclipse.jdt.internal.core.JavaElement.getChildrenOfType(JavaElement.java:247)
+	at org.eclipse.jdt.internal.core.SourceType.getMethods(SourceType.java:499)
+	at org.eclipse.jdt.internal.junit.util.TestSearchEngine.collectDeclaredMethodNames(TestSearchEngine.java:120)
+	at org.eclipse.jdt.internal.junit.util.TestSearchEngine.collectMethodNames(TestSearchEngine.java:88)
+	at org.eclipse.jdt.internal.junit.util.TestSearchEngine.lambda$1(TestSearchEngine.java:72)
+	... 1 more
+Root exception:
+Java Model Exception: Error in Java Model (code 969): TicketekTest [in TicketekTest.java [in MiTicketek [in src [in TP]]]] does not exist
+	at org.eclipse.jdt.internal.core.JavaElement.newNotPresentException(JavaElement.java:546)
+	at org.eclipse.jdt.internal.core.JavaElement.openWhenClosed(JavaElement.java:589)
+	at org.eclipse.jdt.internal.core.JavaElement.getElementInfo(JavaElement.java:292)
+	at org.eclipse.jdt.internal.core.JavaElement.getElementInfo(JavaElement.java:278)
+	at org.eclipse.jdt.internal.core.JavaElement.getChildren(JavaElement.java:233)
+	at org.eclipse.jdt.internal.core.JavaElement.getChildrenOfType(JavaElement.java:247)
+	at org.eclipse.jdt.internal.core.SourceType.getMethods(SourceType.java:499)
+	at org.eclipse.jdt.internal.junit.util.TestSearchEngine.collectDeclaredMethodNames(TestSearchEngine.java:120)
+	at org.eclipse.jdt.internal.junit.util.TestSearchEngine.collectMethodNames(TestSearchEngine.java:88)
+	at org.eclipse.jdt.internal.junit.util.TestSearchEngine.lambda$1(TestSearchEngine.java:72)
+	at org.eclipse.jface.operation.ModalContext$ModalContextThread.run(ModalContext.java:124)
+
+!ENTRY org.eclipse.jdt.junit 4 4 2025-06-13 20:22:28.903
+!MESSAGE Error
+!STACK 0
+java.lang.reflect.InvocationTargetException
+	at org.eclipse.jdt.internal.junit.util.TestSearchEngine.lambda$1(TestSearchEngine.java:74)
+	at org.eclipse.jface.operation.ModalContext$ModalContextThread.run(ModalContext.java:124)
+Caused by: Java Model Exception: Error in Java Model (code 969): TicketekTest [in TicketekTest.java [in MiTicketek [in src [in TP]]]] does not exist
+	at org.eclipse.jdt.internal.core.JavaElement.newNotPresentException(JavaElement.java:546)
+	at org.eclipse.jdt.internal.core.JavaElement.openWhenClosed(JavaElement.java:589)
+	at org.eclipse.jdt.internal.core.JavaElement.getElementInfo(JavaElement.java:292)
+	at org.eclipse.jdt.internal.core.JavaElement.getElementInfo(JavaElement.java:278)
+	at org.eclipse.jdt.internal.core.JavaElement.getChildren(JavaElement.java:233)
+	at org.eclipse.jdt.internal.core.JavaElement.getChildrenOfType(JavaElement.java:247)
+	at org.eclipse.jdt.internal.core.SourceType.getMethods(SourceType.java:499)
+	at org.eclipse.jdt.internal.junit.util.TestSearchEngine.collectDeclaredMethodNames(TestSearchEngine.java:120)
+	at org.eclipse.jdt.internal.junit.util.TestSearchEngine.collectMethodNames(TestSearchEngine.java:88)
+	at org.eclipse.jdt.internal.junit.util.TestSearchEngine.lambda$1(TestSearchEngine.java:72)
+	... 1 more
+Root exception:
+Java Model Exception: Error in Java Model (code 969): TicketekTest [in TicketekTest.java [in MiTicketek [in src [in TP]]]] does not exist
+	at org.eclipse.jdt.internal.core.JavaElement.newNotPresentException(JavaElement.java:546)
+	at org.eclipse.jdt.internal.core.JavaElement.openWhenClosed(JavaElement.java:589)
+	at org.eclipse.jdt.internal.core.JavaElement.getElementInfo(JavaElement.java:292)
+	at org.eclipse.jdt.internal.core.JavaElement.getElementInfo(JavaElement.java:278)
+	at org.eclipse.jdt.internal.core.JavaElement.getChildren(JavaElement.java:233)
+	at org.eclipse.jdt.internal.core.JavaElement.getChildrenOfType(JavaElement.java:247)
+	at org.eclipse.jdt.internal.core.SourceType.getMethods(SourceType.java:499)
+	at org.eclipse.jdt.internal.junit.util.TestSearchEngine.collectDeclaredMethodNames(TestSearchEngine.java:120)
+	at org.eclipse.jdt.internal.junit.util.TestSearchEngine.collectMethodNames(TestSearchEngine.java:88)
+	at org.eclipse.jdt.internal.junit.util.TestSearchEngine.lambda$1(TestSearchEngine.java:72)
+	at org.eclipse.jface.operation.ModalContext$ModalContextThread.run(ModalContext.java:124)
+
+!ENTRY org.eclipse.jdt.junit 4 4 2025-06-13 20:22:41.034
+!MESSAGE Error
+!STACK 0
+java.lang.reflect.InvocationTargetException
+	at org.eclipse.jdt.internal.junit.util.TestSearchEngine.lambda$1(TestSearchEngine.java:74)
+	at org.eclipse.jface.operation.ModalContext$ModalContextThread.run(ModalContext.java:124)
+Caused by: Java Model Exception: Error in Java Model (code 969): TicketekTest [in TicketekTest.java [in MiTicketek [in src [in TP]]]] does not exist
+	at org.eclipse.jdt.internal.core.JavaElement.newNotPresentException(JavaElement.java:546)
+	at org.eclipse.jdt.internal.core.JavaElement.openWhenClosed(JavaElement.java:589)
+	at org.eclipse.jdt.internal.core.JavaElement.getElementInfo(JavaElement.java:292)
+	at org.eclipse.jdt.internal.core.JavaElement.getElementInfo(JavaElement.java:278)
+	at org.eclipse.jdt.internal.core.JavaElement.getChildren(JavaElement.java:233)
+	at org.eclipse.jdt.internal.core.JavaElement.getChildrenOfType(JavaElement.java:247)
+	at org.eclipse.jdt.internal.core.SourceType.getMethods(SourceType.java:499)
+	at org.eclipse.jdt.internal.junit.util.TestSearchEngine.collectDeclaredMethodNames(TestSearchEngine.java:120)
+	at org.eclipse.jdt.internal.junit.util.TestSearchEngine.collectMethodNames(TestSearchEngine.java:88)
+	at org.eclipse.jdt.internal.junit.util.TestSearchEngine.lambda$1(TestSearchEngine.java:72)
+	... 1 more
+Root exception:
+Java Model Exception: Error in Java Model (code 969): TicketekTest [in TicketekTest.java [in MiTicketek [in src [in TP]]]] does not exist
+	at org.eclipse.jdt.internal.core.JavaElement.newNotPresentException(JavaElement.java:546)
+	at org.eclipse.jdt.internal.core.JavaElement.openWhenClosed(JavaElement.java:589)
+	at org.eclipse.jdt.internal.core.JavaElement.getElementInfo(JavaElement.java:292)
+	at org.eclipse.jdt.internal.core.JavaElement.getElementInfo(JavaElement.java:278)
+	at org.eclipse.jdt.internal.core.JavaElement.getChildren(JavaElement.java:233)
+	at org.eclipse.jdt.internal.core.JavaElement.getChildrenOfType(JavaElement.java:247)
+	at org.eclipse.jdt.internal.core.SourceType.getMethods(SourceType.java:499)
+	at org.eclipse.jdt.internal.junit.util.TestSearchEngine.collectDeclaredMethodNames(TestSearchEngine.java:120)
+	at org.eclipse.jdt.internal.junit.util.TestSearchEngine.collectMethodNames(TestSearchEngine.java:88)
+	at org.eclipse.jdt.internal.junit.util.TestSearchEngine.lambda$1(TestSearchEngine.java:72)
+	at org.eclipse.jface.operation.ModalContext$ModalContextThread.run(ModalContext.java:124)
+
+!ENTRY org.eclipse.jdt.junit 4 4 2025-06-13 20:22:41.054
+!MESSAGE Error
+!STACK 0
+java.lang.reflect.InvocationTargetException
+	at org.eclipse.jdt.internal.junit.util.TestSearchEngine.lambda$1(TestSearchEngine.java:74)
+	at org.eclipse.jface.operation.ModalContext$ModalContextThread.run(ModalContext.java:124)
+Caused by: Java Model Exception: Error in Java Model (code 969): TicketekTest [in TicketekTest.java [in MiTicketek [in src [in TP]]]] does not exist
+	at org.eclipse.jdt.internal.core.JavaElement.newNotPresentException(JavaElement.java:546)
+	at org.eclipse.jdt.internal.core.JavaElement.openWhenClosed(JavaElement.java:589)
+	at org.eclipse.jdt.internal.core.JavaElement.getElementInfo(JavaElement.java:292)
+	at org.eclipse.jdt.internal.core.JavaElement.getElementInfo(JavaElement.java:278)
+	at org.eclipse.jdt.internal.core.JavaElement.getChildren(JavaElement.java:233)
+	at org.eclipse.jdt.internal.core.JavaElement.getChildrenOfType(JavaElement.java:247)
+	at org.eclipse.jdt.internal.core.SourceType.getMethods(SourceType.java:499)
+	at org.eclipse.jdt.internal.junit.util.TestSearchEngine.collectDeclaredMethodNames(TestSearchEngine.java:120)
+	at org.eclipse.jdt.internal.junit.util.TestSearchEngine.collectMethodNames(TestSearchEngine.java:88)
+	at org.eclipse.jdt.internal.junit.util.TestSearchEngine.lambda$1(TestSearchEngine.java:72)
+	... 1 more
+Root exception:
+Java Model Exception: Error in Java Model (code 969): TicketekTest [in TicketekTest.java [in MiTicketek [in src [in TP]]]] does not exist
+	at org.eclipse.jdt.internal.core.JavaElement.newNotPresentException(JavaElement.java:546)
+	at org.eclipse.jdt.internal.core.JavaElement.openWhenClosed(JavaElement.java:589)
+	at org.eclipse.jdt.internal.core.JavaElement.getElementInfo(JavaElement.java:292)
+	at org.eclipse.jdt.internal.core.JavaElement.getElementInfo(JavaElement.java:278)
+	at org.eclipse.jdt.internal.core.JavaElement.getChildren(JavaElement.java:233)
+	at org.eclipse.jdt.internal.core.JavaElement.getChildrenOfType(JavaElement.java:247)
+	at org.eclipse.jdt.internal.core.SourceType.getMethods(SourceType.java:499)
+	at org.eclipse.jdt.internal.junit.util.TestSearchEngine.collectDeclaredMethodNames(TestSearchEngine.java:120)
+	at org.eclipse.jdt.internal.junit.util.TestSearchEngine.collectMethodNames(TestSearchEngine.java:88)
+	at org.eclipse.jdt.internal.junit.util.TestSearchEngine.lambda$1(TestSearchEngine.java:72)
+	at org.eclipse.jface.operation.ModalContext$ModalContextThread.run(ModalContext.java:124)
+
+!ENTRY org.eclipse.jdt.junit 4 4 2025-06-13 20:22:41.110
+!MESSAGE Error
+!STACK 0
+java.lang.reflect.InvocationTargetException
+	at org.eclipse.jdt.internal.junit.util.TestSearchEngine.lambda$1(TestSearchEngine.java:74)
+	at org.eclipse.jface.operation.ModalContext$ModalContextThread.run(ModalContext.java:124)
+Caused by: Java Model Exception: Error in Java Model (code 969): TicketekTest [in TicketekTest.java [in MiTicketek [in src [in TP]]]] does not exist
+	at org.eclipse.jdt.internal.core.JavaElement.newNotPresentException(JavaElement.java:546)
+	at org.eclipse.jdt.internal.core.JavaElement.openWhenClosed(JavaElement.java:589)
+	at org.eclipse.jdt.internal.core.JavaElement.getElementInfo(JavaElement.java:292)
+	at org.eclipse.jdt.internal.core.JavaElement.getElementInfo(JavaElement.java:278)
+	at org.eclipse.jdt.internal.core.JavaElement.getChildren(JavaElement.java:233)
+	at org.eclipse.jdt.internal.core.JavaElement.getChildrenOfType(JavaElement.java:247)
+	at org.eclipse.jdt.internal.core.SourceType.getMethods(SourceType.java:499)
+	at org.eclipse.jdt.internal.junit.util.TestSearchEngine.collectDeclaredMethodNames(TestSearchEngine.java:120)
+	at org.eclipse.jdt.internal.junit.util.TestSearchEngine.collectMethodNames(TestSearchEngine.java:88)
+	at org.eclipse.jdt.internal.junit.util.TestSearchEngine.lambda$1(TestSearchEngine.java:72)
+	... 1 more
+Root exception:
+Java Model Exception: Error in Java Model (code 969): TicketekTest [in TicketekTest.java [in MiTicketek [in src [in TP]]]] does not exist
+	at org.eclipse.jdt.internal.core.JavaElement.newNotPresentException(JavaElement.java:546)
+	at org.eclipse.jdt.internal.core.JavaElement.openWhenClosed(JavaElement.java:589)
+	at org.eclipse.jdt.internal.core.JavaElement.getElementInfo(JavaElement.java:292)
+	at org.eclipse.jdt.internal.core.JavaElement.getElementInfo(JavaElement.java:278)
+	at org.eclipse.jdt.internal.core.JavaElement.getChildren(JavaElement.java:233)
+	at org.eclipse.jdt.internal.core.JavaElement.getChildrenOfType(JavaElement.java:247)
+	at org.eclipse.jdt.internal.core.SourceType.getMethods(SourceType.java:499)
+	at org.eclipse.jdt.internal.junit.util.TestSearchEngine.collectDeclaredMethodNames(TestSearchEngine.java:120)
+	at org.eclipse.jdt.internal.junit.util.TestSearchEngine.collectMethodNames(TestSearchEngine.java:88)
+	at org.eclipse.jdt.internal.junit.util.TestSearchEngine.lambda$1(TestSearchEngine.java:72)
+	at org.eclipse.jface.operation.ModalContext$ModalContextThread.run(ModalContext.java:124)
+
+!ENTRY org.eclipse.jdt.junit 4 4 2025-06-13 20:22:41.141
+!MESSAGE Error
+!STACK 0
+java.lang.reflect.InvocationTargetException
+	at org.eclipse.jdt.internal.junit.util.TestSearchEngine.lambda$1(TestSearchEngine.java:74)
+	at org.eclipse.jface.operation.ModalContext$ModalContextThread.run(ModalContext.java:124)
+Caused by: Java Model Exception: Error in Java Model (code 969): TicketekTest [in TicketekTest.java [in MiTicketek [in src [in TP]]]] does not exist
+	at org.eclipse.jdt.internal.core.JavaElement.newNotPresentException(JavaElement.java:546)
+	at org.eclipse.jdt.internal.core.JavaElement.openWhenClosed(JavaElement.java:589)
+	at org.eclipse.jdt.internal.core.JavaElement.getElementInfo(JavaElement.java:292)
+	at org.eclipse.jdt.internal.core.JavaElement.getElementInfo(JavaElement.java:278)
+	at org.eclipse.jdt.internal.core.JavaElement.getChildren(JavaElement.java:233)
+	at org.eclipse.jdt.internal.core.JavaElement.getChildrenOfType(JavaElement.java:247)
+	at org.eclipse.jdt.internal.core.SourceType.getMethods(SourceType.java:499)
+	at org.eclipse.jdt.internal.junit.util.TestSearchEngine.collectDeclaredMethodNames(TestSearchEngine.java:120)
+	at org.eclipse.jdt.internal.junit.util.TestSearchEngine.collectMethodNames(TestSearchEngine.java:88)
+	at org.eclipse.jdt.internal.junit.util.TestSearchEngine.lambda$1(TestSearchEngine.java:72)
+	... 1 more
+Root exception:
+Java Model Exception: Error in Java Model (code 969): TicketekTest [in TicketekTest.java [in MiTicketek [in src [in TP]]]] does not exist
+	at org.eclipse.jdt.internal.core.JavaElement.newNotPresentException(JavaElement.java:546)
+	at org.eclipse.jdt.internal.core.JavaElement.openWhenClosed(JavaElement.java:589)
+	at org.eclipse.jdt.internal.core.JavaElement.getElementInfo(JavaElement.java:292)
+	at org.eclipse.jdt.internal.core.JavaElement.getElementInfo(JavaElement.java:278)
+	at org.eclipse.jdt.internal.core.JavaElement.getChildren(JavaElement.java:233)
+	at org.eclipse.jdt.internal.core.JavaElement.getChildrenOfType(JavaElement.java:247)
+	at org.eclipse.jdt.internal.core.SourceType.getMethods(SourceType.java:499)
+	at org.eclipse.jdt.internal.junit.util.TestSearchEngine.collectDeclaredMethodNames(TestSearchEngine.java:120)
+	at org.eclipse.jdt.internal.junit.util.TestSearchEngine.collectMethodNames(TestSearchEngine.java:88)
+	at org.eclipse.jdt.internal.junit.util.TestSearchEngine.lambda$1(TestSearchEngine.java:72)
+	at org.eclipse.jface.operation.ModalContext$ModalContextThread.run(ModalContext.java:124)
+
+!ENTRY org.eclipse.jdt.junit 4 4 2025-06-13 20:22:41.170
+!MESSAGE Error
+!STACK 0
+java.lang.reflect.InvocationTargetException
+	at org.eclipse.jdt.internal.junit.util.TestSearchEngine.lambda$1(TestSearchEngine.java:74)
+	at org.eclipse.jface.operation.ModalContext$ModalContextThread.run(ModalContext.java:124)
+Caused by: Java Model Exception: Error in Java Model (code 969): TicketekTest [in TicketekTest.java [in MiTicketek [in src [in TP]]]] does not exist
+	at org.eclipse.jdt.internal.core.JavaElement.newNotPresentException(JavaElement.java:546)
+	at org.eclipse.jdt.internal.core.JavaElement.openWhenClosed(JavaElement.java:589)
+	at org.eclipse.jdt.internal.core.JavaElement.getElementInfo(JavaElement.java:292)
+	at org.eclipse.jdt.internal.core.JavaElement.getElementInfo(JavaElement.java:278)
+	at org.eclipse.jdt.internal.core.JavaElement.getChildren(JavaElement.java:233)
+	at org.eclipse.jdt.internal.core.JavaElement.getChildrenOfType(JavaElement.java:247)
+	at org.eclipse.jdt.internal.core.SourceType.getMethods(SourceType.java:499)
+	at org.eclipse.jdt.internal.junit.util.TestSearchEngine.collectDeclaredMethodNames(TestSearchEngine.java:120)
+	at org.eclipse.jdt.internal.junit.util.TestSearchEngine.collectMethodNames(TestSearchEngine.java:88)
+	at org.eclipse.jdt.internal.junit.util.TestSearchEngine.lambda$1(TestSearchEngine.java:72)
+	... 1 more
+Root exception:
+Java Model Exception: Error in Java Model (code 969): TicketekTest [in TicketekTest.java [in MiTicketek [in src [in TP]]]] does not exist
+	at org.eclipse.jdt.internal.core.JavaElement.newNotPresentException(JavaElement.java:546)
+	at org.eclipse.jdt.internal.core.JavaElement.openWhenClosed(JavaElement.java:589)
+	at org.eclipse.jdt.internal.core.JavaElement.getElementInfo(JavaElement.java:292)
+	at org.eclipse.jdt.internal.core.JavaElement.getElementInfo(JavaElement.java:278)
+	at org.eclipse.jdt.internal.core.JavaElement.getChildren(JavaElement.java:233)
+	at org.eclipse.jdt.internal.core.JavaElement.getChildrenOfType(JavaElement.java:247)
+	at org.eclipse.jdt.internal.core.SourceType.getMethods(SourceType.java:499)
+	at org.eclipse.jdt.internal.junit.util.TestSearchEngine.collectDeclaredMethodNames(TestSearchEngine.java:120)
+	at org.eclipse.jdt.internal.junit.util.TestSearchEngine.collectMethodNames(TestSearchEngine.java:88)
+	at org.eclipse.jdt.internal.junit.util.TestSearchEngine.lambda$1(TestSearchEngine.java:72)
+	at org.eclipse.jface.operation.ModalContext$ModalContextThread.run(ModalContext.java:124)
+
+!ENTRY org.eclipse.jdt.junit 4 4 2025-06-13 20:22:41.202
+!MESSAGE Error
+!STACK 0
+java.lang.reflect.InvocationTargetException
+	at org.eclipse.jdt.internal.junit.util.TestSearchEngine.lambda$1(TestSearchEngine.java:74)
+	at org.eclipse.jface.operation.ModalContext$ModalContextThread.run(ModalContext.java:124)
+Caused by: Java Model Exception: Error in Java Model (code 969): TicketekTest [in TicketekTest.java [in MiTicketek [in src [in TP]]]] does not exist
+	at org.eclipse.jdt.internal.core.JavaElement.newNotPresentException(JavaElement.java:546)
+	at org.eclipse.jdt.internal.core.JavaElement.openWhenClosed(JavaElement.java:589)
+	at org.eclipse.jdt.internal.core.JavaElement.getElementInfo(JavaElement.java:292)
+	at org.eclipse.jdt.internal.core.JavaElement.getElementInfo(JavaElement.java:278)
+	at org.eclipse.jdt.internal.core.JavaElement.getChildren(JavaElement.java:233)
+	at org.eclipse.jdt.internal.core.JavaElement.getChildrenOfType(JavaElement.java:247)
+	at org.eclipse.jdt.internal.core.SourceType.getMethods(SourceType.java:499)
+	at org.eclipse.jdt.internal.junit.util.TestSearchEngine.collectDeclaredMethodNames(TestSearchEngine.java:120)
+	at org.eclipse.jdt.internal.junit.util.TestSearchEngine.collectMethodNames(TestSearchEngine.java:88)
+	at org.eclipse.jdt.internal.junit.util.TestSearchEngine.lambda$1(TestSearchEngine.java:72)
+	... 1 more
+Root exception:
+Java Model Exception: Error in Java Model (code 969): TicketekTest [in TicketekTest.java [in MiTicketek [in src [in TP]]]] does not exist
+	at org.eclipse.jdt.internal.core.JavaElement.newNotPresentException(JavaElement.java:546)
+	at org.eclipse.jdt.internal.core.JavaElement.openWhenClosed(JavaElement.java:589)
+	at org.eclipse.jdt.internal.core.JavaElement.getElementInfo(JavaElement.java:292)
+	at org.eclipse.jdt.internal.core.JavaElement.getElementInfo(JavaElement.java:278)
+	at org.eclipse.jdt.internal.core.JavaElement.getChildren(JavaElement.java:233)
+	at org.eclipse.jdt.internal.core.JavaElement.getChildrenOfType(JavaElement.java:247)
+	at org.eclipse.jdt.internal.core.SourceType.getMethods(SourceType.java:499)
+	at org.eclipse.jdt.internal.junit.util.TestSearchEngine.collectDeclaredMethodNames(TestSearchEngine.java:120)
+	at org.eclipse.jdt.internal.junit.util.TestSearchEngine.collectMethodNames(TestSearchEngine.java:88)
+	at org.eclipse.jdt.internal.junit.util.TestSearchEngine.lambda$1(TestSearchEngine.java:72)
+	at org.eclipse.jface.operation.ModalContext$ModalContextThread.run(ModalContext.java:124)
+!SESSION 2025-06-20 14:09:04.058 -----------------------------------------------
+eclipse.buildId=4.35.0.20250306-0811
+java.version=21.0.6
+java.vendor=Eclipse Adoptium
+BootLoader constants: OS=win32, ARCH=x86_64, WS=win32, NL=es_AR
+Framework arguments:  -product org.eclipse.epp.package.java.product
+Command-line arguments:  -os win32 -ws win32 -arch x86_64 -product org.eclipse.epp.package.java.product
+
+!ENTRY ch.qos.logback.classic 1 0 2025-06-20 14:09:06.447
+!MESSAGE Activated before the state location was initialized. Retry after the state location is initialized.
+
+!ENTRY ch.qos.logback.classic 1 0 2025-06-20 14:10:24.359
+!MESSAGE Logback config file: C:\Users\Facundo\Desktop\TP-Final-P2\.metadata\.plugins\org.eclipse.m2e.logback\logback.2.7.0.20241001-1350.xml
+
+!ENTRY org.eclipse.egit.ui 2 0 2025-06-20 14:10:29.195
+!MESSAGE Warning: The environment variable HOME is not set. The following directory will be used to store the Git
+user global configuration and to define the default location to store repositories: 'C:\Users\Facundo'. If this is
+not correct please set the HOME environment variable and restart Eclipse. Otherwise Git for Windows and
+EGit might behave differently since they see different configuration options.
+This warning can be switched off on the Team > Git > Confirmations and Warnings preference page.

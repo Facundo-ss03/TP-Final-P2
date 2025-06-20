@@ -3,18 +3,18 @@ import java.util.Objects;
 
 public class Sector {
 
-    public Sector(int CAPACIDAD_MAXIMA, int ASIENTOS_X_FILA, int PORCENTAJE_ADICIONAL){
+    public Sector(int capacidadMaxima, int asientosPorFila, int porcentajeAdicional){
 
-    	if(PORCENTAJE_ADICIONAL < 0) {
+    	if(porcentajeAdicional < 0) {
     		throw new RuntimeException("Error: el adicional es negativo.");
     	}
-    	if(CAPACIDAD_MAXIMA < 0) {
+    	if(capacidadMaxima < 0) {
     		throw new RuntimeException("Error: la capacidad máxima es negativa.");
     	}
     	
-        this.ADICIONAL = PORCENTAJE_ADICIONAL;
-        this.CAPACIDAD_MAXIMA = CAPACIDAD_MAXIMA;
-        this.ASIENTOS_X_FILA = ASIENTOS_X_FILA;
+        this.ADICIONAL = porcentajeAdicional;
+        this.CAPACIDAD_MAXIMA = capacidadMaxima;
+        this.ASIENTOS_X_FILA = asientosPorFila;
     }
     
     private int ADICIONAL;

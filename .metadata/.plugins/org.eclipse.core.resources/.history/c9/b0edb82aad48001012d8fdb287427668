@@ -1,0 +1,183 @@
+
+package MiTicketek;
+
+import java.util.HashMap;
+import java.util.HashSet;
+
+public class Funcion {
+    
+    public Funcion(Sede sede, double precio){
+        
+    	if(sede == null) {
+    		throw new RuntimeException("Error: la sede es nula.");
+    	}
+    	if(precio < 0) {
+    		throw new RuntimeException("Error: el precio es inválido.");
+        }
+    	
+        this.sede = sede;
+        this.precioBase = precio;
+
+        if(sede instanceof SedesConPlateas){
+
+            SedesConPlateas cast = (SedesConPlateas) sede;
+            this.asientosVendidos = new HashMap<String, HashSet<Integer>>();
+
+            for (String sector : cast.listarSectores()) {
+                
+                asientosVendidos.put(sector, new HashSet<>());
+
+            }
+
+        } else {
+
+            this.asientosVendidosEstadio = 0;
+        
+        }
+    }
+
+    private Sede sede;
+    private double precioBase;
+    private HashMap<String, HashSet<Integer>> asientosVendidos;  //<codigoEntrada, nroAsiento>  //anularEntrada() debe eliminar de este mapa los asientos de las entradas anuladas
+    private int asientosVendidosEstadio;
+
+    public Entrada crearEntrada(String emailUsuario, String nombreDeEspectaculo, String fechaDeFuncion) {
+
+    	if(emailUsuario.trim().isEmpty()) {
+    		throw new RuntimeException("Error: el email está vacío.");	
+    	}
+    	if(nombreDeEspectaculo.trim().isEmpty()) {
+    		throw new RuntimeException("Error: el nombre de espectáculo está vacío.");	
+    	}
+    	if(fechaDeFuncion.trim().isEmpty()) {
+    		throw new RuntimeException("Error: la fecha está vacía.");	
+    	}
+    	
+        if(consultarDisponibilidadDeAsiento()){
+
+            Fecha fecha = new Fecha(fechaDeFuncion);
+            
+            Entrada entrada = new Entrada(emailUsuario, nombreDeEspectaculo, sede.getNombre(), fecha, precioBase);
+            asientosVendidosEstadio++;
+    
+            return entrada;
+
+        } else {
+            throw new RuntimeException("Error: no hay entradas disponibles (el estadio está lleno).");
+        }
+
+    }
+
+    public Entrada crearEntrada(String emailUsuario, String nombreDeEspectaculo,
+                                String fechaDeFuncion, String sector, int asiento) {
+   	
+        Entrada entrada;
+        
+        if(consultarDisponibilidadDeAsiento(asiento)){
+                
+            if(sede instanceof SedesConPlateas){
+        
+	            SedesConPlateas sedeSeleccionada = (SedesConPlateas) sede;
+	            
+	            int fila = sedeSeleccionada.buscarFila(sector, asiento);
+	            Fecha fecha = new Fecha(fechaDeFuncion);
+	
+	            double precioFinal = sedeSeleccionada.calcularCostoConAdicional(sector, precioBase);
+	
+	            entrada = new Entrada(emailUsuario, nombreDeEspectaculo, sede.getNombre(), sector, asiento, fila, fecha, precioFinal);
+	            asientosVendidos.get(sector).add(asiento);
+	
+	            return entrada;
+	            
+            } else {
+                throw new RuntimeException("Error: La sede ingresada no es una sede con plateas.");
+            }
+            
+        } else {
+               throw new RuntimeException("El asiento solicitado no está disponible.");
+        }
+    }
+
+    private boolean consultarDisponibilidadDeAsiento(){
+        if(asientosVendidosEstadio < sede.getCapacidadMaxima()) return true;
+            else return false;
+    }
+
+    private boolean consultarDisponibilidadDeAsiento(int asiento){
+    	
+    	if(asiento <= 0) {
+    		throw new RuntimeException("Error: el asiento es negativo o cero.");	
+    	}
+    	
+        if(asientosVendidos.values().contains(asiento)) return false;
+            else return true;
+    }
+
+    public void  quitarEntrada(String sector, int asiento){
+    	
+        asientosVendidos.get(sector).remove(asiento);    
+
+    }
+
+    public void quitarEntrada(){
+        asientosVendidosEstadio -= 1;
+    }
+
+    public double calcularCostoFinal(){
+
+        return precioBase;
+
+    }
+    
+    public String getNombreSede(){
+        return sede.getNombre();
+    }
+
+
+    public double calcularCostoFinal(String sector){
+
+        if(sede instanceof SedesConPlateas){
+    
+        SedesConPlateas s = (SedesConPlateas) sede;
+        return s.calcularCostoConAdicional(sector, precioBase);
+    
+        } else {
+                throw new RuntimeException("Error: la sede de la función no tiene plateas.");
+        }
+    }
+
+    @Override
+    public String toString() {
+        
+        StringBuilder sb = new StringBuilder();
+
+        if(asientosVendidos == null){
+
+            sb.append(sede.getNombre() + " - ");
+            sb.append(asientosVendidosEstadio + "/" + sede.getCapacidadMaxima());
+            sb.append("\n");
+    
+        } else {
+
+            SedesConPlateas miSede = (SedesConPlateas) sede;
+            sb.append(sede.getNombre() + " - ");
+            for (String sector : miSede.listarSectores()) {
+
+                sb.append(sector + ": ");
+                sb.append(asientosVendidos.get(sector).size());
+                sb.append("/" + miSede.getCapacidadMaximaDeSector(sector));
+                sb.append(" | ");
+                
+            }
+
+            if(sb.length() > 3){
+                sb.setLength(sb.length()-3);
+            }
+
+        }
+
+        return sb.toString();
+
+    }
+
+}
