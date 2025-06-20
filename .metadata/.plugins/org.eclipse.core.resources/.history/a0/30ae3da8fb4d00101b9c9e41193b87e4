@@ -1,0 +1,45 @@
+package MiTicketek;
+import java.util.Objects;
+
+public class MiniTeatro extends SedesConPlateas{
+
+    MiniTeatro(String nombreSede, String direccion, int capMaxima, int asientosPorFila, int cantPuestos, 
+                double valorDeConsumicion, String[] listaSectores, int[] capacidadPorSector, int[] porcentajeAdicional) {
+        
+        super(nombreSede, direccion, capMaxima, listaSectores, capacidadPorSector, asientosPorFila, porcentajeAdicional);
+
+        if(cantPuestos < 0) {
+        	throw new RuntimeException("Error: la cantidad de puestos es negativa.");
+        }
+        if(valorDeConsumicion < 0) {
+        	throw new RuntimeException("Error: el valor de la consumición libre es negativo.");
+        }
+        this.PUESTOS = cantPuestos;
+        this.CONSUMICION_LIBRE = valorDeConsumicion;
+
+    }
+
+    private int PUESTOS;
+    private double CONSUMICION_LIBRE;
+    
+    @Override
+    public double calcularCostoFinal(String sector, double precioBase) {
+        
+        return super.calcularCostoFinal(sector, precioBase) + CONSUMICION_LIBRE;
+
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if(!super.equals(obj)) return false;
+
+        MiniTeatro miniTeatro = (MiniTeatro) obj; 
+        return PUESTOS == miniTeatro.PUESTOS;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(PUESTOS, super.hashCode());
+    }
+
+}

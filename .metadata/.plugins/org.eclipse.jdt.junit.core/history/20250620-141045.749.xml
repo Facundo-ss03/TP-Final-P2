@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?><testrun name="TicketekTest" project="TP" tests="20" started="20" failures="0" errors="0" ignored="0">
+  <testsuite name="MiTicketek.TicketekTest" time="0.002">
+    <testcase name="ej01_registrarSedeRegistrada" classname="MiTicketek.TicketekTest" time="0.001"/>
+    <testcase name="ej02_registrarUsuarioRegistrado" classname="MiTicketek.TicketekTest" time="0.0"/>
+    <testcase name="ej03_registrarEspectaculoConNombreRepetido" classname="MiTicketek.TicketekTest" time="0.0"/>
+    <testcase name="ej04_venderEntradaEstadio" classname="MiTicketek.TicketekTest" time="0.0"/>
+    <testcase name="ej04_venderEntradaTeatroContraseniaInvalida" classname="MiTicketek.TicketekTest" time="0.0"/>
+    <testcase name="ej04_venderEntradaUsuarioInvalido" classname="MiTicketek.TicketekTest" time="0.0"/>
+    <testcase name="ej05_listarFuncionesDeEspectaculo" classname="MiTicketek.TicketekTest" time="0.0"/>
+    <testcase name="ej06_listarEntradasFuturas" classname="MiTicketek.TicketekTest" time="0.0"/>
+    <testcase name="ej07_listarTodasEntradasUsuario" classname="MiTicketek.TicketekTest" time="0.0"/>
+    <testcase name="ej08_anularEntrada" classname="MiTicketek.TicketekTest" time="0.0"/>
+    <testcase name="ej08_anularEntradaConContraseniaIncorrecta" classname="MiTicketek.TicketekTest" time="0.0"/>
+    <testcase name="ej08_anularEntradaIndefinida" classname="MiTicketek.TicketekTest" time="0.0"/>
+    <testcase name="ej08_anularEntradaInexistente" classname="MiTicketek.TicketekTest" time="0.0"/>
+    <testcase name="ej09_cambiarEntrada" classname="MiTicketek.TicketekTest" time="0.0"/>
+    <testcase name="ej10_calcularCostoTotalEntradaEstadio" classname="MiTicketek.TicketekTest" time="0.001"/>
+    <testcase name="ej11_consultarValorEntrada" classname="MiTicketek.TicketekTest" time="0.0"/>
+    <testcase name="ej12_calcularTotalRecaudadoEspectaculo" classname="MiTicketek.TicketekTest" time="0.0"/>
+    <testcase name="ej13_calcularTotalRecaudadoEspectaculoEnSede" classname="MiTicketek.TicketekTest" time="0.0"/>
+    <testcase name="ej14_agregarFuncionesConFechasRepetidas" classname="MiTicketek.TicketekTest" time="0.0"/>
+    <testcase name="ej15_ConsultarEntradasVendidasParaEspectaculo" classname="MiTicketek.TicketekTest" time="0.0"/>
+  </testsuite>
+</testrun>

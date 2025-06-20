@@ -1,0 +1,139 @@
+
+package MiTicketek;
+import java.util.HashMap;
+
+import javax.management.RuntimeErrorException;
+
+public abstract class SedesConPlateas extends Sede {
+
+    SedesConPlateas(String nombreSede, String direccion, int CAPACIDAD_MAXIMA, String[] listaDeSectores, 
+                    int[] capacidadPorSector, int ASIENTOS_X_FILA, int[] porcentajesAdicionales) {
+
+        super(nombreSede, direccion, CAPACIDAD_MAXIMA);
+
+        if(listaDeSectores == null || listaDeSectores.length == 0) {
+        	throw new RuntimeException("Error: la lista de sectores está vacía o es nula.");
+        }
+        if(capacidadPorSector == null || capacidadPorSector.length == 0) {
+        	throw new RuntimeException("Error: la lista de capacidades está vacía o es nula.");
+        }
+        if(porcentajesAdicionales == null || porcentajesAdicionales.length == 0) {
+        	throw new RuntimeException("Error: la lista de porcentajes está vacía o es nula.");
+        }
+        if(ASIENTOS_X_FILA <= 0) {
+        	throw new RuntimeException("Error: la cantidad de asientos por fila es negativa o cero.");
+        }
+        if((listaDeSectores.length + capacidadPorSector.length + porcentajesAdicionales.length)%3 != 0) {
+        	throw new RuntimeException("Error: la lista de sectores, capacidades y porcentajes no tienen la misma cantidad de elementos.");
+        }
+        
+        sectores = new  HashMap<String, Sector>();
+
+        this.listaSectores = listaDeSectores;
+        configurarSectores(listaDeSectores, capacidadPorSector, ASIENTOS_X_FILA, porcentajesAdicionales);
+    }
+
+    private HashMap<String, Sector> sectores;
+    private String[] listaSectores;
+
+    @Override
+    public double calcularCostoFinal(String sector, double precioBase) {
+        
+        return calcularCostoConAdicional(sector, precioBase);
+
+    }
+
+    @Override
+    public String getUbicacionDeAsiento() {
+        throw new RuntimeException("Error: el usuario debe elegir un sector y un asiento.");
+    }
+
+    @Override
+    public String getUbicacionDeAsiento(String Sector, int asiento) {
+        
+        StringBuilder sb = new StringBuilder();
+
+        sb.append("f: " + buscarFila(Sector, asiento) + " ");
+        sb.append("a: " + asiento);
+
+        return sb.toString();
+    }
+
+    private double calcularCostoConAdicional(String sector, double precioBase){
+
+    	if(sector.trim().isEmpty()) {
+    		throw new RuntimeException("Error: el nombre del sector está vacío.");
+    	}
+    	
+        if(sectores.containsKey(sector)){
+    
+            return sectores.get(sector).calcularCosto(precioBase);
+                
+        } else {
+            throw new RuntimeException("Error: el sector ingresado no existe.");
+        }
+
+    }
+
+    private void configurarSectores(String[] listaDeSectores, int[] capacidadPorSector, int ASIENTOS_X_FILA, int[] porcentajesAdicionales){
+        
+        for (int i = 0; i < listaDeSectores.length; i++) {
+            sectores.put(listaDeSectores[i], new Sector(capacidadPorSector[i], ASIENTOS_X_FILA, porcentajesAdicionales[i]));
+        }
+    }
+
+    //Este método está pensado para validar si el sector solicitado existe, y para obtener la fila en la que se encuentra el asiento.
+    public int buscarFila(String sector, int NUMERO_DE_ASIENTO){
+
+    	if(sector.trim().isEmpty()) {
+    		throw new RuntimeException("Error: el nombre del sector está vacío.");
+    	}
+    	
+        if(sectores.containsKey(sector)){
+
+            Sector s = sectores.get(sector);
+
+            return s.calcularFila(NUMERO_DE_ASIENTO);
+        
+        } else {
+            throw new RuntimeException("Error: No existe el asiento en el sector solicitado");
+        }
+    }
+
+    @Override
+    public String[] listarSectores(){
+
+        return listaSectores;
+
+    }
+
+    @Override
+    public int getCapacidadMaxima(String sector){
+        
+        if(sectores.containsKey(sector)) {
+            return sectores.get(sector).getCapacidadMaxima();
+        } else {
+            throw new RuntimeException("Error: el sector solicitado no existe.");
+        }
+
+    }
+
+    @Override
+    public String toString() {
+        
+        StringBuilder sb = new StringBuilder();
+        sb.append("\n"+ super.toString());
+        
+        sb.append("Sectores: ");
+        for (String elem : sectores.keySet()) {
+            
+            sb.append(elem + ", ");
+
+        }
+
+        sb.append("\n");
+
+        return sb.toString();
+    }
+
+}
